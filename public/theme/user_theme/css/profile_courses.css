@@ -1,0 +1,138 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+body,
+html {
+  font-size: 15px;
+  line-height: 1.4666666667;
+  color: #000;
+  font-family: 'Raleway', sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Raleway', sans-serif;
+}
+.corsdetailareadata {
+    padding: 25px;
+    -webkit-box-shadow: 4px 4px 5px 0px rgb(0 0 0 / 75%);
+    -moz-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 6px 23px 0px rgb(0 0 0 / 32%);
+}
+.corsdetailarea {
+    padding: 100px;
+}
+.corsdetailareadata h1 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 30px;
+  background: #f1582b;
+  padding: 8px;
+  text-align: center !important;
+}
+.prtable tr {
+    border: 1px solid #dddddd;
+}
+.prtable thead {
+  border: 1px solid #dddddd;
+}
+.prtable th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+}
+.prtable tr td {
+  border: 1px solid #dddddd;
+  height: 42px !important;
+  font-size: 13px !important;
+  color: gray !important;
+  font-weight: 500 !important;
+  padding: 11px 1px !important;
+}
+.porjoin {
+    background: #01cc01;
+    margin-top: -11px;
+    border-radius: 0px;
+    font-size: 12px;
+    height: 28px;
+    font-weight: 600;
+    border-color: green;
+}
+td.asdas {
+    text-align: center;
+}
+.pordetai {
+    background: #292974;
+    margin-top: -11px;
+    border-radius: 0px;
+    font-size: 12px;
+    height: 28px;
+    font-weight: 600;
+    border-color: #292974;
+}
+.porjoinn {
+    background: gray;
+    margin-top: -11px;
+    border-radius: 0px;
+    font-size: 12px;
+    height: 28px;
+    font-weight: 600;
+    border-color: gray;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width : 768px) {
+
+
+}

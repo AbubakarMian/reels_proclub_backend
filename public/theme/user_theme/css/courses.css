@@ -1,0 +1,105 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+body,
+html {
+    font-size: 15px;
+    line-height: 1.4666666667;
+    color: #000;
+    font-family: "Montserrat", sans-serif;
+}
+
+.container {
+    width: 1587px;
+}
+
+.boxes {
+    height: auto;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    -webkit-border-radius: 0.15rem;
+    -moz-border-radius: .15rem;
+    -ms-border-radius: .15rem;
+    border-radius: 0.15rem;
+}
+
+.container {
+    width: 1587px;
+}
+
+.mb2reviews-stars.sm {
+    color: #fb8b24;
+}
+
+.img-hov {
+    max-width: 100%;
+    min-width: 12px;
+    margin: 25px;
+}
+
+.image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.course-item .course-rating>span {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.theme-courses-topbar {
+    background-color: #f9f9f9;
+    border: solid 1px rgba(0, 0, 0, .01);
+    -webkit-border-radius: 0.15rem;
+    -moz-border-radius: .15rem;
+    -ms-border-radius: .15rem;
+    border-radius: 0.15rem;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: top;
+}
+
+.boxing:hover .image {
+    opacity: 0.3;
+}
+
+.boxing:hover .middle {
+    opacity: 1;
+}
+
+.text {
+    background-color: rgba(230, 57, 70, .6);
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+}
+
+.second-line {
+    margin-top: 25px;
+}
+
+@media only screen and (max-width: 480px) {
+    .infoboxdata {
+        margin-top: -150px;
+    }
+}

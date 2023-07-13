@@ -1,0 +1,613 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+.infoarea {
+    display: flex;
+    float: right;
+    margin-top: 6px;
+    margin-bottom: 15px;
+}
+.infobox {
+    display: flex;
+    padding: 0px 25px;
+}
+.infoboximg img {
+    height: 35px;
+    margin: 15px 11px;
+}
+.infoboxdata h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 18px;
+    text-align: justify;
+    margin-bottom: -15px;
+}
+.infoboxdata p {
+    color: gray;
+    font-size: 13px;
+    text-align: justify;
+}
+.logclick {
+    border-radius: 16px;
+    margin-top: 20px;
+    width: 120px;
+    background-color: #f1582b !important;
+    border-color: #f1582b !important;
+    color: white;
+    margin: 3px;
+    height: 34px;
+    padding: 6px 5px;
+}
+.loicons {
+    border-radius: 16px;
+    margin-top: 20px;
+    /* width: 120px; */
+    color: #f1582b;
+    margin: 3px;
+    /* height: 34px; */
+    /* padding: 6px 5px; */
+    background: transparent;
+}
+.logclic {
+    border-radius: 0px;
+    margin-top: 20px;
+    width: 120px;
+    background-color: #292974;
+    border-color: #292974;
+}
+.infoboximg i {
+    margin-top: 20px;
+    font-size: 30px;
+    margin-right: 10px;
+    color: #f1582b;
+}
+.logoArea img {
+    /* height: 70px;
+  padding: 0px 30px;
+  margin-top: 0px; */
+    margin: 0 auto;
+    height: 130px;
+}
+.menuu li a span {
+    color: #323a45;
+    font-weight: 500;
+}
+.row.headrow {
+    /* border-top: 1px solid #80808054; */
+    padding: 15px 5px;
+}
+.menuu li {
+    margin: 0px 10px;
+}
+.logclickk {
+    background: white;
+}
+.logclickk {
+    border-radius: 0px;
+    margin-top: 8px;
+    width: 78px;
+    background-color: white;
+    border-color: rgb(226, 226, 226);
+}
+.menuu {
+    float: right;
+}
+.footerarea {
+    background: #323a45;
+    padding-top: 50px;
+}
+.lastfooterarea {
+    text-align: center;
+    color: white;
+    border-top: 1px solid;
+    padding: 10px;
+    margin-top: 0px;
+    padding-top: 17px;
+    background: #323a45;
+}
+.footerdataa h4 {
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 10px 0px;
+}
+.footerdataa h3 {
+    background: #292c31;
+    height: 2px;
+    width: 35px;
+    margin-top: -8px;
+    margin-bottom: 15px;
+}
+.footerdataa ul li:before {
+    content: "\f138";
+    color: white;
+    font-family: "FontAwesome";
+    padding-right: 10px;
+    left: 0;
+}
+.footerdataa ul {
+    list-style: none;
+    padding: 0px;
+}
+.footerdataa ul li {
+    color: white;
+    font-size: 13px;
+    font-weight: 200;
+    line-height: 25px;
+}
+.footerdataa p {
+    color: white;
+    font-size: 13px;
+    font-weight: 200;
+}
+.footerdataa img {
+    margin: 0 auto;
+}
+.signbar {
+    height: 55px;
+    float: left;
+    margin-top: 12px !important;
+    margin-bottom: 50px !important;
+}
+.aboutarea {
+    background-image: url(../images/bgabout.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    padding: 50px;
+}
+/* .dfg a:hover {
+  background: #f1582b;
+  color: white;
+} */
+.dfg {
+    padding: 10px;
+    color: black !important;
+    font-size: 13px;
+    margin: -5px 20px;
+    border-radius: 0px;
+    line-height: 25px;
+}
+.infoboxdata {
+    display: -webkit-box;
+    margin-top: 10px;
+}
+.aboutareadata h2 {
+    color: white;
+    font-size: 40px;
+    font-weight: 600;
+}
+.aboutareadata p {
+    color: white;
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 27px;
+}
+.acols a {
+    color: white !important;
+}
+.abolern {
+    border-radius: 0px;
+    margin-top: 20px;
+    width: 150px;
+    background-color: #e63946;
+    border-color: #e63946;
+    height: 42px;
+    font-size: 16px;
+}
+.aboutareaimg img {
+    margin: 0 auto;
+}
+.collagearea {
+    padding: 50px;
+}
+.collagearea h2 {
+    color: #292974;
+    font-size: 40px;
+    font-weight: 600;
+}
+.collagearea p {
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 27px;
+}
+.abolern {
+    border-radius: 0px;
+    margin-top: 20px;
+    width: 150px;
+    background-color: #e9e9f1;
+    border-color: #292974;
+    height: 42px;
+    color: #292974;
+    font-size: 16px;
+    font-weight: 500;
+}
+.abolernn {
+    border-radius: 0px;
+    margin-top: 20px;
+    width: 150px;
+    background-color: #292974;
+    border-color: #292974;
+    height: 42px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}
+.coursebox {
+    display: flex;
+    padding: 0px 25px;
+}
+.courseboximg img {
+    height: auto;
+    margin: 35px -10px;
+}
+.courseboxdata h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    margin-top: 18px;
+    color: #292974;
+}
+.courseboxdata p {
+    color: gray;
+    font-size: 11px;
+    line-height: 13px;
+    margin-top: 7px;
+}
+.courseboxdata a {
+    font-size: 13px;
+    font-weight: 600;
+    color: #292974;
+}
+.colorbox.bgreen {
+    background: #68c03e;
+    padding: 20px;
+    border-radius: 9px;
+    margin: 12px;
+}
+.colorbox.bgreen img {
+    margin: 0 auto;
+    height: 100px;
+}
+.colorbox.bgreen h3 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+    margin-top: 25px;
+}
+.colorbox.bred {
+    background: #e32e43;
+    padding: 20px;
+    border-radius: 9px;
+    margin: 12px;
+}
+.colorbox.bred img {
+    margin: 0 auto;
+    height: 100px;
+}
+.colorbox.bred h3 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+    margin-top: 25px;
+}
+.colorbox.bblue {
+    background: #1f9bfa;
+    padding: 20px;
+    border-radius: 9px;
+    margin: 12px;
+}
+.colorbox.bblue img {
+    margin: 0 auto;
+    height: 100px;
+}
+.colorbox.bblue h3 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+    margin-top: 25px;
+}
+.colorbox.byellow {
+    background: #feb91f;
+    padding: 20px;
+    border-radius: 9px;
+    margin: 12px;
+}
+.colorbox.byellow img {
+    margin: 0 auto;
+    height: 100px;
+}
+.colorbox.byellow h3 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+    margin-top: 25px;
+}
+.colorboxarea {
+    padding: 50px;
+}
+.bannerarea {
+    background-image: url(../images/haderimagee.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    padding: 50px;
+}
+.bannerareadata h1 {
+    font-size: 50px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.bannerareadata {
+    padding: 50px;
+    color: white;
+}
+.bannerareadata h3 {
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 50px;
+}
+.banclick {
+    background: #292974;
+    border-color: #292424;
+    color: white;
+    width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 0px;
+}
+.banclick:hover {
+    background: #252563;
+    border-color: #292424;
+    color: white;
+}
+.carousel-control.left {
+    background-image: -webkit-linear-gradient(
+        left,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0.0001) 100%
+    );
+    background-image: -o-linear-gradient(
+        left,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0.0001) 100%
+    );
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(0, 0, 0, 0.5)),
+        to(rgba(0, 0, 0, 0.0001))
+    );
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0.0001) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+    background-repeat: repeat-x;
+}
+.carousel-control.right {
+    background-image: -webkit-linear-gradient(
+        left,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0.0001) 100%
+    );
+    background-image: -o-linear-gradient(
+        left,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0.0001) 100%
+    );
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(rgba(0, 0, 0, 0.5)),
+        to(rgba(0, 0, 0, 0.0001))
+    );
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0.0001) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+    background-repeat: repeat-x;
+}
+span.forspan {
+    float: right;
+}
+.loginheader h3 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    color: #292974;
+}
+.loginformarea {
+    padding: 50px;
+}
+.loginformarea label {
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+}
+.loginformarea input {
+    border-radius: 0px;
+    padding: 18px;
+    color: black;
+}
+span.forspan {
+    float: right;
+    color: #292974;
+    font-weight: 500;
+}
+/* .fgfh ul li:before {
+  content: "\f138";
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'FontAwesome';
+  padding-right: 10px;
+  left: 0;
+}
+.fgfh ul {
+  list-style: none;
+  padding: 0px;
+} */
+/* .tupclio {
+  border-radius: 0px;
+  margin-top: 20px;
+  width: 120px;
+  background-color: #f1582b !important;
+  border-color: #f1582b !important;
+  color: white;
+  margin: 3px;
+  height: 34px;
+  padding: 6px 5px;
+} */
+.asic {
+    font-size: 36px;
+    /* margin-top: 2px; */
+    /* margin-left: 10px; */
+    color: #f1582b;
+    cursor: pointer;
+    margin-top: -8px;
+}
+.dfg a {
+    font-size: 13px;
+    color: black;
+}
+.lastfooterdata p a {
+    color: #f1582b;
+}
+
+@media only screen and (max-width: 480px) {
+    .logoArea img {
+        height: 70px;
+        padding: 0px 30px;
+        margin-top: 0px;
+        /* margin: 0 auto;
+        height: 130px; */
+    }
+    .bannerareadata {
+        padding: 0px;
+        color: white;
+    }
+    .bannerareadata h1 {
+        font-size: 35px;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+    .bannerareadata h3 {
+        font-size: 14px;
+        font-weight: 300;
+        margin-bottom: 50px;
+    }
+    .banclick {
+        background: #292974;
+        border-color: #292424;
+        color: white;
+        width: 200px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 0px;
+        margin-top: -10px;
+        margin-bottom: 35px;
+    }
+    .colorbox.bgreen img {
+        margin: 0 auto;
+        height: 80px;
+    }
+    .colorbox.bgreen h3 {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        margin-top: 25px;
+    }
+    .colorboxarea {
+        padding: 50px;
+        padding-bottom: 0px;
+    }
+    .collagearea h2 {
+        color: #292974;
+        font-size: 29px;
+        font-weight: 600;
+        text-align: center;
+    }
+    .collagearea p {
+        color: black;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 23px;
+        text-align: center;
+    }
+    .collageareadata {
+        text-align: center;
+    }
+    .abolernn {
+        border-radius: 0px;
+        margin-top: 20px;
+        width: 150px;
+        background-color: #292974;
+        border-color: #292974;
+        height: 42px;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 30px;
+    }
+    .coursebox {
+        display: initial;
+        padding: 0px 25px;
+    }
+    .courseboximg img {
+        height: auto;
+        margin: 0 auto;
+    }
+    .courseboxdata {
+        text-align: center;
+    }
+    .abolern {
+        border-radius: 0px;
+        margin-top: 20px;
+        width: 150px;
+        background-color: #e9e9f1;
+        border-color: #292974;
+        height: 42px;
+        color: #292974;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 49px;
+    }
+    .footerarea {
+        padding: 21px;
+        background: #323a45;
+        padding-top: 30px;
+    }
+    .signbar {
+        height: 55px;
+        float: left;
+        margin-top: 12px !important;
+        margin-bottom: 30px !important;
+    }
+    .menuu {
+        float: left;
+        margin-top: 24px;
+    }
+    .threebarclick {
+        margin-top: -60px;
+    }
+    .infobox {
+        display: flex;
+        padding: 0px 0px;
+    }
+}

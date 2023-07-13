@@ -1,0 +1,208 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+body,
+html {
+    font-size: 15px;
+    line-height: 1.4666666667;
+    color: #000;
+    font-family: "Montserrat", sans-serif;
+}
+
+.boxes {
+    height: auto;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    -webkit-border-radius: 0.15rem;
+    -moz-border-radius: .15rem;
+    -ms-border-radius: .15rem;
+    border-radius: 0.15rem;
+}
+.rating {
+    padding: 10px 10px;
+    border-radius: 10px;
+    border: 1px solid #a2a2a2;
+    margin: 13px 0px;
+    background: white;
+}
+.rating:hover {
+    -webkit-box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 75%);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 75%);
+}
+h4.title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 30px !important;
+    color: #000 !important;
+    height: 20px;
+    overflow: hidden;
+}
+.teacher {
+    font-size: 13px;
+    line-height: 19px;
+    margin-bottom: 10px;
+    color: black;
+    height: 55px;
+    overflow: scroll;
+}
+.teacher::-webkit-scrollbar-thumb:hover  {
+    background: rgb(99, 99, 99);
+}
+.teacher::-webkit-scrollbar-thumb {
+    background: rgb(168, 168, 168);
+}
+.teacher::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.teacher::-webkit-scrollbar {
+    scrollbar-width: thin;
+    width: 6px;
+}
+
+
+h4.title a {
+    color: black !important;
+}
+ /* .container {
+    width: 1587px;
+} */
+.container.catdeta {
+    padding-bottom: 50px;
+}
+.resubg {
+    background: #f1582b;
+    border-color: #f1582b;
+    border-radius: 0px;
+    width: 10%;
+}
+.topctbar {
+    width:100%;
+}
+.aafa {
+color: #4e4e4e;
+font-size: 16px;
+font-weight: 600;
+margin-bottom: 5px;
+}
+.bfgs {
+height: 40px !important;
+border-radius: 0px !important;
+color: #7f7d7d !important;
+margin-bottom: 25px;
+}
+.text {
+    background-color: rgb(241 88 43) !important;
+    font-size: 14px;
+    padding: 3px 11px !important;
+    border-radius: 5px;
+}
+.text a{
+   color: white !important;
+}
+.mb2reviews-stars.sm {
+    color: #fb8b24;
+    display: contents;
+}
+span.ratingnum {
+    margin-right: 10px;
+    color: #000 !important;
+}
+span.ratingcount {
+    margin-left: -90px;
+}
+.price-container {
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 7px;
+    color: gray;
+}
+.course-rating {
+    display: flex;
+}
+span.currency {
+    font-size: 13px;
+    font-weight: 700;
+    color: black;
+}
+
+.img-hov {
+    max-width: 100%;
+    min-width: 12px;
+    margin: 25px;
+}
+
+.image {
+    opacity: 1;
+    display: block;
+    width: -webkit-fill-available;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.course-item .course-rating>span {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.theme-courses-topbar {
+    background-color: #fafafa;
+    border: solid 1px #ebebeb;
+    -webkit-border-radius: 0.15rem;
+    -moz-border-radius: .15rem;
+    -ms-border-radius: .15rem;
+    border-radius: 1px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-top: 50px;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: top;
+}
+
+.boxing:hover .image {
+    opacity: 0.3;
+}
+
+.boxing:hover .middle {
+    opacity: 1;
+}
+
+/* .text {
+    background-color: rgba(230, 57, 70, .6);
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+} */
+.gahalink {
+    cursor: pointer;
+}
+
+.second-line {
+    margin-top: 25px;
+}
+.gahalink {
+
+}
+
+@media only screen and (max-width: 480px) {
+    .infoboxdata {
+        margin-top: -150px;
+    }
+}

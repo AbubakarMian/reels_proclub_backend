@@ -1,0 +1,173 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+body,
+html {
+  font-size: 15px;
+  line-height: 1.4666666667;
+  color: #000;
+  font-family: 'Raleway', sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Raleway', sans-serif;
+}
+
+.mainhed h3 {
+    font-size: 22px;
+    font-weight: 500;
+    color: darkslategray;
+    margin-top: 30px;
+}
+.rgm {
+    float: right;
+    margin-top: -50px;
+    background: #f1582b;
+    border-color: #f1582b;
+    color: white;
+    padding-top: 10px;
+    border-radius: 0px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.mainhed input {
+    border-radius: 0px;
+    width: 100%;
+    height: 44px;
+    font-size: 15px;
+    color: black;
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+    padding-top: 9px;
+}
+.mainhed select {
+    border-radius: 0px;
+    width: 100%;
+    height: 44px;
+    font-size: 15px;
+    color: black;
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+    padding-top: 9px;
+}
+.vsdg {
+    margin-top: 50px;
+}
+.regi {
+    border-radius: 0px;
+    font-size: 15px;
+    font-weight: 500;
+    background: #3bb54a;
+    border-color: #3bb54a;
+    color: white;
+    height: 45px;
+    width: 20%;
+    font-family: revert;
+}
+.regii {
+    border-radius: 0px;
+    font-size: 15px;
+    font-weight: 500;
+    background: #f1582b;
+    border-color: #f1582b;
+    color: white;
+    height: 36px;
+    width: 20%;
+    font-family: revert;
+}
+.regi:hover {    
+    background: #3bb54a;
+    border-color: #3bb54a;
+    color: white;    
+}
+.regii:hover {
+    background: #3bb54a;
+    border-color: #3bb54a;
+    color: white;   
+}
+.teacherR {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 18px;
+}
+.dates {
+    font-size: 16px;
+    color: #589d00 !important;
+    background-color: gold;
+    margin-left: 14px;
+    padding-top: 7px;
+}
+.date {
+    font-size: 16px;
+    color: #589d00 !important;
+    background-color: gold;
+    margin-left: 64px;
+    border-radius: -8px;
+    padding-top: 8px;
+    padding-bottom: 9px;
+}
+/* .courbanddata h2 {
+    font-weight: 500;
+    text-align: center;
+    color: currentColor;
+    margin-top: 50px;
+} */
+.courbanddata h2 {
+    font-weight: 600;
+    /* text-align: center; */
+    color: currentColor;
+    margin-top: 50px;
+    font-family: revert;
+    color: #292974;
+    /* background-color: black; */
+    width: 98%;
+    border-radius: 10px;
+    font-size: 35px;
+    /* padding: 10px; */
+}
+.dubhead h1 {
+    font-weight: 600;
+    color: currentcolor;
+    margin-top: -25px;
+}
+.sacvg {
+    border: 1px solid #c2c1c1;
+    padding: 25px;
+    margin-top: -35px;
+}
+.sacvg input {
+    width: 100%;
+    height: 44px;
+    padding: 3px 8px;
+    border: 1px solid #dddddd;
+    background: white;
+}
+.sacvg label {
+    color: gray;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    margin-top: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 480px) {}

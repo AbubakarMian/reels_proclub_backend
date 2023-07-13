@@ -1,0 +1,129 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+body,
+html {
+  font-size: 15px;
+  line-height: 1.4666666667;
+  color: #000;
+  font-family: "Montserrat", sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Montserrat", sans-serif;
+}
+
+.regeformdata {
+  border: 1px solid #2929741c;
+  padding: 30px;
+  margin-bottom: 50px;
+}
+.row.headrow {
+  border-bottom: 3px solid #323a4536;
+  margin-bottom: 50px;
+}
+.infoarea {
+  display: flex;
+  float: right;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+.regeformdata h3 {
+  text-align: center;
+  margin-top: -5px;
+  margin-bottom: 25px;
+  font-size: 30px;
+  font-weight: 600;
+  color: #525252;
+}
+.regeformdata select {
+  font-size: 14px;
+  color: black;
+  border-radius: 0px;
+  margin-bottom: 10px;
+}
+.regeformdata input {
+  font-size: 14px;
+  color: black;
+  border-radius: 0px;
+  margin-bottom: 10px;
+}
+.regeformdata textarea {
+  font-size: 14px;
+  color: black;
+  border-radius: 0px;
+  margin-bottom: 10px;
+}
+.resub {
+  border-radius: 0px;
+  margin-top: 20px;
+  width: 120px;
+  background-color: #292974;
+  border-color: #292974;
+  float: right;
+  font-weight: 500;
+}
+.recli {
+  border-radius: 0px;
+  margin-top: 20px;
+  width: 120px;
+  background-color: red;
+  border-color: red;
+  float: left;
+  font-weight: 500;
+}
+.resub:hover {
+  background-color: #303079;
+  border-color: #292974;
+}
+.recli:hover {
+  background-color: rgb(228, 11, 11);
+  border-color: red;
+}
+.regeformimg {
+  background: #292974;
+  padding: 50px;
+  margin: 0px;
+  border: 1px solid #e8e8f0;
+  min-height: 685px;
+}
+.regeformimg h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 20px;
+}
+.regeformimgg p {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 21px;
+  margin-bottom: 22px;
+  color: white;
+}
+/* .regeformarea {
+  padding: 50px;
+} */
+.regeformimg {
+    background-image: url(../images/footerlogo.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    padding: 25px;
+}
+/* .regeformimg {
+    background-image: url(../images/bgabout.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    padding: 50px;
+} */
+.regeformimgg {
+  text-align: center;
+}
+
+@media only screen and (max-width: 480px) {
+  .infoboxdata {
+    margin-top: -150px;
+  }
+}

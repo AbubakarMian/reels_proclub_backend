@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap');
+body,html {
+	font-size: 15px;
+    line-height: 1.4666666667;
+    color: #000;
+    font-family: 'Manjari', sans-serif;
+}
+h1,h2,h3,h4{
+	font-family: 'Manjari', sans-serif;
+}
+
+.profilesareadata h1 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 33px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    background: #f1582b;
+    padding: 15px;
+    border-radius: 41px;
+}
+.profilesarea {
+    padding: 100px;    
+}
+.profilesareadata {   
+    padding: 35px;   
+    -webkit-box-shadow: 4px 4px 5px 0px rgb(0 0 0 / 75%);
+    -moz-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 6px 23px 0px rgb(0 0 0 / 32%);
+}
+.profilesareadata label {
+    font-size: 16px;
+    margin-bottom: 0px;
+    margin-top: 20px;
+    font-weight: 600;
+    color: gray;
+}
+.profilesareadata input {
+    border-radius: 0px;
+    color: black;
+    font-size: 14px;
+    height: 38px;
+    border-color: #8080808f;
+}
+.profilesareadata select {
+    border-radius: 0px;
+    color: black;
+    font-size: 14px;
+    height: 38px;
+    border-color: #8080808f;
+}
+.profilesareadata textarea {
+    border-radius: 0px;
+    color: black;
+    font-size: 14px;
+    border-color: #8080808f;
+}
+.updt {
+    border-radius: 0px;
+    font-size: 17px;
+    font-weight: 500;
+    background: #f1582b;
+    border-color: #f1582b;
+    color: white;
+    height: 38px;
+    width: 14%;
+    font-family: revert;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+.updt {
+    background: #f1582b;
+    border-color: #f1582b;
+    color: white;
+}
+.procclick {
+    text-align: center;
+    margin-top: 30px;
+}
+.picimg {
+    background: white;
+    border: 1px solid #b8b8b8;
+    width: 100%;
+    padding: 7px 0px;
+}
+.drup:hover {
+    color: white;
+}
+
+
+/*  */
+.image_area {
+    position: relative;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.preview {
+    overflow: hidden;
+    width: 160px;
+    height: 160px;
+    margin: 10px;
+    border: 1px solid red;
+}
+
+.modal-lg {
+    max-width: 1000px !important;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    height: 0;
+    transition: .5s ease;
+    width: 100%;
+}
+
+.image_area:hover .overlay {
+    height: 50%;
+    cursor: pointer;
+}
+
+.text {
+    color: blue;
+    font-size: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+/*  */
+
+
+
+
+
+@media only screen and (max-width : 768px) {
+
+
+}

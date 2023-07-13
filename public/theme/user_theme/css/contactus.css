@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap');
+body,html {
+	font-size: 15px;
+    line-height: 1.4666666667;
+    color: #000;
+    font-family: 'Manjari', sans-serif;
+}
+h1,h2,h3,h4{
+	font-family: 'Manjari', sans-serif;
+}
+/* .btn-primary {
+    color: #fff;
+    background-color: #ca0000;
+    border-color: #ca0000;
+} */
+/* .btn-primary:hover {
+    color: #fff;
+    background-color: #2d2c32;
+    border-color: #2d2c32;
+} */
+.contactareadata h2 {
+    text-align: center;
+    color: white;
+    font-size: 35px;
+    font-weight: 600;
+}
+div#confirm {
+    background-color: beige;
+}
+
+a.btn.btn-md.btn-primary.myyuu {
+    margin-top: 11px
+;
+}
+a.btn.btn-md.btn-primary.myyop {
+    background-color: #bfb28e;
+}
+
+input.form-control.myyyyema {
+    background-color: azure;
+}
+.contactareadata h3 {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+}
+.contactareadata p {
+    text-align: center;
+    color: white;
+    font-size: 22px;
+    font-weight: 400;
+}
+.logosite h3 {
+    font-size: 26px;
+    color: white;
+    font-weight: 500;
+}
+.infobox {
+    display: flex;
+}
+.infoboxdata p {
+    color: white;
+    font-size: 17px;
+    font-weight: 400;
+    margin: 0px 10px;
+}
+.infoboximg img {
+    margin: 0 auto;
+    height: 40px;
+    width: auto;
+    margin: 8px 0px;
+}
+.infoboxdata p {
+    margin-top: 15px;
+}
+.logosite h3 {
+    font-size: 26px;
+    color: white;
+    font-weight: 500;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+.logosite img {
+    margin: 0 auto;
+}
+.myform {
+    margin-top: 100px;
+}
+.paddown {
+    margin-bottom: 25px;
+}
+.myformdata {
+    background: transparent !important;
+    border: 3px solid white !important;
+    border-radius: 6px;
+    height: 50px;
+    width: 100%;
+    color: white;
+}
+.myformdata::placeholder {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+.entersend {
+    background: #e2e2e2 im !important;
+    border-color: #e2e2e2 im !important;
+    color: black im !important;
+    font-size: 18px im !important;
+    font-weight: bold im !important;
+    padding: 2px 15px im !important;
+    padding-top: 9px im !important;
+    height: 45px im !important;
+    width: 140px im !important;
+    margin-top: 15px im !important;
+}
+.entersend:hover {
+    background: #bfb28e im !important;
+    border-color: #bfb28e im !important;
+    color: white im !important;
+}
+.backgroundcolor{
+    background-image: url("../images//contactbg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    padding: 30px 10px;
+}
+
+.alert.alert-danger.alert-block.mop {
+    margin-top: 21px;
+}
+.contactarea {
+    text-align: center;
+    background: #474e580a;
+    padding: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width : 768px) {
+
+
+}

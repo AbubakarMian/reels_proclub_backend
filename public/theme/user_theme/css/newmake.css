@@ -1,0 +1,170 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+body,
+html {
+  font-size: 15px;
+  line-height: 1.4666666667;
+  color: #000;
+  font-family: 'Raleway', sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Raleway', sans-serif;
+}
+
+.row.serchbox {
+    background: #e2e2e2;
+    height: 90px;
+    padding: 24px 5px;
+    margin-top: 0px;
+}
+.shdata {
+    border-color: #bfb28e;
+    width: 100%;
+    height: 40px;
+}
+.row.paymentarea {
+    background: #243439;
+    color: white;
+    margin: 25px 5px;
+}
+.row.mypayment {
+    padding: 0px 40px;
+}
+.ngncode p {
+    font-size: 19px;
+    color: #243439;
+}
+body {
+    background: #f5f5f5
+}
+
+.rounded {
+    border-radius: 1rem
+}
+
+.nav-pills .nav-link {
+    color: #555
+}
+
+.nav-pills .nav-link.active {
+    color: white
+}
+
+input[type="radio"] {
+    margin-right: 5px
+}
+
+.bold {
+    font-weight: bold
+}
+a.btn.btn-sm.btn-primary.check-out-btn.mypayment {
+    margin-left: 248px;
+}
+
+
+
+/*  */
+
+/* div#myDIV {
+    background-color: white;
+    width: 744px
+;
+    margin-left: 450px
+;
+
+    height: 528px
+;
+    padding-left: 21px
+;
+    padding-right: 21px
+;
+    padding-top: 16px
+;
+} */
+
+
+
+
+
+
+
+
+/*  */
+.form-group.row.mypayment label {
+    font-size: 20px;
+    color: #243439;
+    font-weight: 400;
+    margin-top: 5px;
+}
+.paymentul {
+    display: flex;
+}
+.paymentformdata {
+    background: white;
+    border-color: #e0e0e0;
+    height: 40px;
+    width: 100%;
+}
+.proced {
+    background: #bfb28e !important;
+    color: white  !important;
+    border-color: #bfb28e !important;
+    height: 42px !important;
+    font-size: 18px !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    padding: 10px 15px !important;
+
+}
+.proced:hover {
+    background: #243439;
+    color: white;
+    border-color: #243439;
+}
+.paymentul img {
+    margin: 15px 35px;
+}
+.paymentul p {
+    margin: 15px 6px;
+    font-size: 18px;
+}
+.paymentul label {
+    margin: 15px 0px;
+    font-size: 18px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width : 768px) {
+
+
+}
