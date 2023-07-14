@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('role_id')->nullable()->default(0);
+            $table->bigInteger('subscription_id')->nullable()->default(0);
             $table->string('name')->nullable()->default(null);
             $table->string('last_name')->nullable()->default(null);
             $table->string('email')->nullable()->default(null);
@@ -24,12 +25,6 @@ return new class extends Migration
             $table->string('city', 250)->nullable()->default(null);//
             $table->string('zip_code', 250)->nullable()->default(null);//
             $table->string('state', 250)->nullable()->default(null);//
-            $table->string('education', 250)->nullable()->default(null);//
-            $table->string('collage_name', 250)->nullable()->default(null);//
-            $table->string('computer_experience', 250)->nullable()->default(null);//
-            $table->string('work_experience', 250)->nullable()->default(null);//
-            $table->string('expectations', 250)->nullable()->default(null);//
-            $table->string('certification', 250)->nullable()->default(null);//
             $table->string('password',250)->nullable()->default(null);
             $table->string('access_token', 50)->nullable()->default(null);
             $table->boolean('get_notification')->default(1);
