@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         try {
-            $validator = Validator::make(all(), User::$rules_register);
+            $validator = Validator::make($request->all(), User::$rules_register);
 
             if ($validator->fails()) {
                 return $this->sendResponse(500, null, $validator->messages()->all());
@@ -28,8 +29,11 @@ class UserController extends Controller
                 // $user->father_name = 'fathername';
                 // $user->age = 'age';
                 // $user->gender = 'gender';
-                $user->phone_no = $request->phone;
+                $user->email = $request->email;
+                $user->phone_no = $request->phone_no;
                 $user->password = Hash::make($request->password);
+                $user->access_token = uniqid();
+
                 // $user->required_tutor_class_id = $required_tutor_class_id;
                 // $user->latitude = lat;
                 // $user->longitude = long;
@@ -61,8 +65,7 @@ class UserController extends Controller
         try {
             //Request input Validation
             $validation = Validator::make($request->all(), User::$rules);
-            // dd($validation);
-            if (!$validation->fails()) {
+            if ($validation->fails()) {
                 return $this->sendResponse(
                     Config::get('error.code.BAD_REQUEST'),
                     null,
@@ -85,18 +88,18 @@ class UserController extends Controller
                         'id',
                         'name',
                         'email',
-                        'avatar',
+                        // 'avatar',
                         'access_token',
-                        'get_notification'
+                        // 'get_notification'
                     ])
                         ->first();
 
                     $user->access_token = uniqid();
-                    $user->device_type = $device;
+                    // $user->device_type = $device;
                     $user->save();
                     $user->get_notification = ($user->get_notification ? true : false);
 
-                    unset($user->device_type);
+                    // unset($user->device_type);
                     $responseArray =  [
                         'status' => Config::get('constants.status.OK'),
                         'response' => $user,
