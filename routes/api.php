@@ -20,4 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 // Route::post('register', 'Api\UserController@register');
-Route::Post('register',[UserController::class, 'register']);
+
+Route::group(['middleware' => 'auth.client_token'], function () {
+
+    Route::post('register',[UserController::class, 'register']);
+    Route::post('login',[UserController::class, 'login']);
+});
