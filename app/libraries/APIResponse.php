@@ -1,6 +1,6 @@
 <?php
 
-namespace App\libraries;
+namespace App\Libraries;
 
 use Illuminate\Support\Facades\Log;
 use Response;
