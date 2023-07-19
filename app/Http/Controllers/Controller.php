@@ -6,11 +6,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use App\libraries;
-use App\libraries\Common;
-use App\libraries\APIResponse;
+// use App\Libraries;
+use App\Libraries\Common;
+use App\Libraries\APIResponse;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs,Common,APIResponse, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests,Common,APIResponse;
 }
