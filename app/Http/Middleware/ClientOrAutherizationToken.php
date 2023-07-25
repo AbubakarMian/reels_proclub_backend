@@ -25,13 +25,21 @@ class ClientOrAutherizationToken
     {
         $user = $this->validate_user($request);
         if ($user) {
-            return $next($user);
+            $response = $next($user);
+            $response->headers->set('Access-Control-Allow-Origin','*');
+        
+            return $response;
+            // return $next($user);
         }
         else{
 
             $client = $this->validate_client($request);
             if($client){
-                return $next($client);
+                $response = $next($client);
+                $response->headers->set('Access-Control-Allow-Origin','*');
+                return $response;
+
+                // return $next($client);
             }
         }
 
