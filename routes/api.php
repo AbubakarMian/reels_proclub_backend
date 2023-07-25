@@ -25,4 +25,5 @@ Route::group(['middleware' => 'auth.client_token'], function () {
 
     Route::post('register',[UserController::class, 'register']);
     Route::post('login',[UserController::class, 'login']);
+    Route::post('video_upload',[UserController::class, 'uploadWebm']);
 });

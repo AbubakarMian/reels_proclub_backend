@@ -62,6 +62,9 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
+
+
+        
         try {
             //Request input Validation
             $validation = Validator::make($request->all(), User::$rules);
@@ -89,7 +92,7 @@ class UserController extends Controller
                         'name',
                         'email',
                         // 'avatar',
-                        'access_token',
+                        // 'access_token',
                         // 'get_notification'
                     ])
                         ->first();
@@ -134,4 +137,109 @@ class UserController extends Controller
             ];
         }
     }
+
+
+
+    // video_upload
+
+    // public function video_upload(Request $request)
+    // {
+    //     try {
+    //         if ($request->hasFile('video')) {
+    //             $video = $request->file('video');
+    //             $root = public_path();
+    //             $videoPath = $this->move_video_get_path($video, $root, 'videos');
+
+    //             // Save the video path in the database
+    //             // $videoModel = new Video();
+    //             // $videoModel->title = $request->input('title'); // Assuming you have a form field for the video title
+    //             // $videoModel->video_path = $videoPath;
+    //             // $videoModel->save();
+    //         } else {
+    //             throw new \Exception('Video file not found.', 400);
+    //         }
+
+    //         $res = new stdClass();
+    //         $res->video = $videoPath;
+
+    //         return response()->json($res, 200);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => $e->getCode(),
+    //             'response' => null,
+    //             'error' => [$e->getMessage()],
+    //         ], $e->getCode());
+    //     }
+    // }
+
+
+    // public function move_video_get_path($file, $root, $folder)
+    // {
+    //     $destinationPath = $root . '/' . $folder; // Define the destination folder path
+    //     $filename = time() . '.' . $file->getClientOriginalExtension(); // Generate a unique filename
+    //     $file->move($destinationPath, $filename); // Move the file to the destination folder
+
+    //     return $destinationPath . '/' . $filename; // Return the full path of the uploaded file
+    // }
+    public function uploadWebm(Request $request)
+    {
+        try {
+
+
+            
+            if ($request->hasFile('video')) {
+
+                 $video = $request->file('video');
+                $root = public_path();
+                $videoPath = $this->moveVideoAndGetPath($video, $root, 'videos');
+
+                // Save the video path in the database or perform any other necessary actions
+
+                return $this->sendResponse(200, ['video_path' => $videoPath]);
+
+                // return response()->json(['video_path' => $videoPath], 200);
+            } else {
+                throw new \Exception('Video file not found.', 400);
+            }
+        } 
+        
+        
+        
+        catch (\Exception $e) {
+            return response()->json([
+                'status' => $e->getCode(),
+                'response' => null,
+                'error' => [$e->getMessage()],
+            ], $e->getCode());
+        }
+    }
+
+    public function moveVideoAndGetPath($file, $root, $folder)
+    {
+        if (!$file || !$file->isValid()) {
+            throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
+        }
+    
+        if (!file_exists($root) || !is_dir($root)) {
+            throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
+        }
+    
+        $destinationPath = $root . '/' . $folder;
+    
+        if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
+            throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
+        }
+    
+        $filename = time() . '.webm'; // Manually set the extension to "webm"
+    
+        try {
+            $file->move($destinationPath, $filename);
+        } catch (\Exception $e) {
+            throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
+        }
+    
+        return $destinationPath . '/' . $filename;
+    }
+    
+
 }
