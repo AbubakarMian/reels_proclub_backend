@@ -21,7 +21,17 @@ class AdminController extends Controller
 
     function checklogin(Request $request)
     {
-        $this->validate($request, [
+        // dd('hello');
+        // dd($request->email);
+       $arham =  $request->email;
+
+
+
+
+
+       
+        $this->validate(
+            $request, [
             'email'   => 'required|email',
             'password'  => 'required|alphaNum|min:3'
         ]);
@@ -31,6 +41,7 @@ class AdminController extends Controller
             'password' => $request->get('password'),
             // 'role_id' => 1
         );
+        
 
         if(Auth::attempt($user_data))
         {
@@ -84,91 +95,17 @@ class AdminController extends Controller
             'title' => 'Users ',
 
         ];
-         $modules[]= [
-
-            'url'=>'admin/aboutus/edit/1',
-            'title'=>'About US'
-
-        ];
-        $modules[]= [
-
-            'url'=>'admin/teacher',
-            'title'=>'Teacher'
-
-        ];
+        
         $modules[]= [
 
             'url'=>'admin/category',
             'title'=>'Category'
         ];
-        $modules[] = [
+       
 
-            'url' => 'admin/courses',
-            'title' => 'Courses',
-
-        ];
-        $modules[]= [
-
-            'url'=>'admin/group',
-            'title'=>'Group'
-        ];
-        $modules[]= [
-
-            'url'=>'admin/books',
-            'title'=>'Books'
-        ];
-
-
-        $modules[] = [
-
-            'url' => 'admin/question',
-            'title' => 'Question ',
-
-        ];
-        $modules[]= [
-
-            'url'=>'admin/quiz',
-            'title'=>'Exams'
-
-        ];
-
-        // $modules[]= [
-
-        //     'url'=>'admin/settings',
-        //     'title'=>'Settings'
-
-        // ];
-        $modules[]= [
-
-            'url'=>'admin/workshop',
-            'title'=>'Workshop'
-        ];
-        $modules[] = [
-            'url' => 'admin/contact',
-            'title' => 'Contact Us',
-
-
-        ];
-
-        $modules[]= [
-
-            'url'=>'admin/settings',
-            'title'=>'Settings'
-
-        ];
-
-        $modules[]= [
-
-            'url'=>'admin/role',
-            'title'=>'Role'
-
-        ];
-        $modules[]= [
-
-            'url'=>'admin/employee',
-            'title'=>'Employee'
-
-        ];
+       
+       
+      
 
         $reports[] = [
 
@@ -182,14 +119,14 @@ class AdminController extends Controller
         //     'title' => 'Reports Permission ',
 
         // ];
-        $reports[] = [
-            'url' => 'admin/reports/payments',
-            'title' => 'Payments',
-        ];
-        $reports[]= [
-            'url'=>'admin/student_plan',
-            'title'=>'Student Plan',
-        ];
+        // $reports[] = [
+        //     'url' => 'admin/reports/payments',
+        //     'title' => 'Payments',
+        // ];
+        // $reports[]= [
+        //     'url'=>'admin/student_plan',
+        //     'title'=>'Student Plan',
+        // ];
 
         $myvar = [];
         $myvar['modules'] = $modules;

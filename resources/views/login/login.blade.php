@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Medical Panel LogIn</title>
+    <title> Reels Pro  Panel LogIn</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -28,17 +28,26 @@
 <div class="container box">
     <h3 align="center" style="color: black;
     font-size: 23px;
-    font-weight: 700;">Medical Panel LogIn</h3><br />
+    font-weight: 700;">Reels Pro  Panel LogIn</h3><br />
 
 
     @if ($message = Session::get('error'))
+
+
         <div class="alert alert-danger alert-block">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>{{ $message }}</strong>
         </div>
+
+
+
+
     @endif
 
     @if (count($errors) > 0)
+
+
+
         <div class="alert alert-danger">
             <ul>
                 @foreach($errors->all() as $error)
@@ -46,6 +55,11 @@
                 @endforeach
             </ul>
         </div>
+
+
+
+
+        
     @endif
 
     <form method="post" action="{{ url('/admin/checklogin') }}">

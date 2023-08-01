@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -18,6 +19,8 @@ class UserController extends Controller
     public function register(Request $request)
     {
         try {
+
+            // dd($request->all());
             $validator = Validator::make($request->all(), User::$rules_register);
 
             if ($validator->fails()) {
@@ -230,7 +233,10 @@ class UserController extends Controller
             throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
         }
     
-        $filename = time() . '.webm'; // Manually set the extension to "webm"
+        $file_n = $request->file()->name();
+        $file_n_arr = explode('.',$file_n);
+        $exten = $file_n_arr[count($file_n_arr)-1];
+        $filename = time().'.'.$exten;// . '.webm'; // Manually set the extension to "webm"
     
         try {
             $file->move($destinationPath, $filename);
@@ -239,6 +245,25 @@ class UserController extends Controller
         }
     
         return $destinationPath . '/' . $filename;
+    }
+
+
+    public function get_category(){
+        try {
+            $category = Category::paginate(10,['id','name','avatar']);
+            $category = $category->items();
+            return $this->sendResponse(200, $category);
+        } 
+        
+        catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+
     }
     
 
