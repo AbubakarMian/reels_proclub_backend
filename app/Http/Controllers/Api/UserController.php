@@ -265,6 +265,23 @@ class UserController extends Controller
 
 
     }
+    public function get_people($id){
+        try {
+            $category = Category::where('id',$id)->paginate(10,['id','name','avatar']);
+            $category = $category->items();
+            return $this->sendResponse(200, $category);
+        } 
+        
+        catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+
+    }
     
 
 }
