@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Influencer_category;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -267,7 +268,7 @@ class UserController extends Controller
     }
     public function get_people($id){
         try {
-            $category = Category::where('id',$id)->paginate(10,['id','name','avatar']);
+            $category = Influencer_category::where('id',$id)->paginate(10,['id','name','avatar']);
             $category = $category->items();
             return $this->sendResponse(200, $category);
         } 
