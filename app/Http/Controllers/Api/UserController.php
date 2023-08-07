@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Influencer_category;
+use App\Models\Influencer;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -268,8 +269,45 @@ class UserController extends Controller
     }
     public function get_people($id){
         try {
-            $category = Influencer_category::where('id',$id)->paginate(10,['id','name','avatar']);
+            $category = Category::where('id',$id)->paginate(10,['id','name','avatar']);
             $category = $category->items();
+            return $this->sendResponse(200, $category);
+        } 
+        
+        catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+
+    }
+    public function get_category_people($id){
+        try {
+            // $category = Influencer_category::where('id',$id)->paginate(10,['id','name','avatar']);
+            $category = Influencer_category::where('category_id',$id)->with('user')->paginate(10);
+            $category = $category->items();
+            return $this->sendResponse(200, $category);
+        } 
+        
+        catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+
+    }
+    public function get_reel_rate($id){
+        try {
+           
+            // $user_id = $request->user_id;
+            $category = Influencer::where('user_id',$id)->with('user')->first();
+            // $category = $category->items();
             return $this->sendResponse(200, $category);
         } 
         
