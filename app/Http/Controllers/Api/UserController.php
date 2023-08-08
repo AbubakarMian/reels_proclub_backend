@@ -9,10 +9,14 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Influencer_category;
 use App\Models\Influencer;
+use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use stdClass;
+use Stripe\Stripe;
+
 
 
 class UserController extends Controller
@@ -321,6 +325,49 @@ class UserController extends Controller
 
 
     }
+
+    public function submit_payment(Request $request, $id){
+
+    try {
+        // $normal_user = Auth::user(); 
+        $user_id = $id; // Retrieve authenticated user
+        $influencer = Influencer::where('user_id',$user_id)->with('user')->first();
+        \Stripe\Stripe::setApiKey(config('services.stripe.STRIPE_SECRET'));
+        $paymentIntent = \Stripe\PaymentIntent::create([
+            'amount' => $influencer->rate_per_reel,
+            'currency' => 'usd',
+            // ... other relevant payment details
+        ]);
+        $payment = new Payment();
+        $payment->payment_id = $paymentIntent->id;
+        $payment->payment_response = json_encode($paymentIntent); // Save the full response for reference
+        $payment->status = $paymentIntent->status;
+        $payment->payment_type = $paymentIntent->payment_method_types[0]; // Assuming you're only using one payment method
+        // $payment->amount = $influencer->rate_per_reel;
+        $payment->save();
+
+        $order = new Order();
+        // $order->user_id = $normal_user->id;
+        $order->user_influencer_id = $user_id;
+        $order->status = true;
+        $order->payment_id = $payment->id;
+       
+        $order->save();
+
+        return $this->sendResponse(200, ['message' => 'Payment submitted successfully']);
+
+    }
+    catch (\Exception $e) {
+        return $this->sendResponse(
+            500,
+            null,
+            [$e->getMessage()]
+        );
+    }
+
     
 
 }
+
+}
+

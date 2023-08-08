@@ -29,5 +29,9 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'stripe' =>[
+        'STRIPE_KEY' =>'pk_test_51HWGI7AEX4dqjMHKVkWjzWAQ4v683p4iWGRlw9wPEn0IfoUCjoxpoC00cYE04fzVzwBOASt5GxvqujhTLX4pN5oB00qC6qLvx1',null ,
+        'STRIPE_SECRET' =>'sk_test_51HWGI7AEX4dqjMHKn3tpx0BSgLaWareo5dZ7zSBQjLnlsx4XBmGNflMxYc7SJsaNUsZQcrsHKOMPCIZFiy2xv77g00ndxNeFTs',null ,
+    ]
 
 ];
