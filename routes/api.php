@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\InfluencerController;
 
 
 /*
@@ -30,6 +31,9 @@ Route::group(['middleware' => 'auth.client_token'], function () {
     Route::get('get_people/{id}',[UserController::class, 'get_people']);
     Route::get('get_category_people/{id}',[UserController::class, 'get_category_people']);
     Route::get('get_reel_rate/{id}',[UserController::class, 'get_reel_rate']);
-    Route::post('submit_payment/{id}',[UserController::class, 'submit_payment']);
+    Route::post('submit_payment',[UserController::class, 'submit_payment']);
+    // get_orders_list
+    Route::get('get_orders_list/{id}',[InfluencerController::class, 'get_orders_list']);
+    // get_orders_list
     
 });

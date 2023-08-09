@@ -94,15 +94,14 @@ class UserController extends Controller
                 if ($authUser) {
                     $device = $request->header('client-id');
                     $user = User::where([
-                        'email' => $request->email
+                        'email' => $request->email,
+                        // 'role_id' => 2
                     ])->get([
                         'access_token',
                         'id',
                         'name',
                         'email',
-                        // 'avatar',
-                        // 'access_token',
-                        // 'get_notification'
+                        'role_id',
                     ])
                         ->first();
 
@@ -243,7 +242,6 @@ class UserController extends Controller
         $file_n_arr = explode('.',$file_n);
         $exten = $file_n_arr[count($file_n_arr)-1];
         $filename = time().'.'.$exten;// . '.webm'; // Manually set the extension to "webm"
-    
         try {
             $file->move($destinationPath, $filename);
         } catch (\Exception $e) {
@@ -326,12 +324,14 @@ class UserController extends Controller
 
     }
 
-    public function submit_payment(Request $request, $id){
+    public function submit_payment(Request $request){
 
     try {
-        // $normal_user = Auth::user(); 
-        $user_id = $id; // Retrieve authenticated user
-        $influencer = Influencer::where('user_id',$user_id)->with('user')->first();
+        // 
+        $user_id = $request->user_id;
+        $influencer_user_id =  $request->influencer_user_id;
+        // 
+        $influencer = Influencer::where('user_id',$influencer_user_id)->with('user')->first();
         \Stripe\Stripe::setApiKey(config('services.stripe.STRIPE_SECRET'));
         $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => $influencer->rate_per_reel,
@@ -347,8 +347,8 @@ class UserController extends Controller
         $payment->save();
 
         $order = new Order();
-        // $order->user_id = $normal_user->id;
-        $order->user_influencer_id = $user_id;
+        $order->user_id = $user_id;
+        $order->user_influencer_id = $influencer_user_id;
         $order->status = true;
         $order->payment_id = $payment->id;
        

@@ -10,4 +10,17 @@ class Order extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'order';
+
+
+    public function user()
+    {
+        // return $this->belongsTo(User::class, 'user_id');
+        return $this->hasOne(User::class,'id', 'user_id');
+    }
+
+    // public function user_influencer()
+    // {
+    //     // return $this->belongsTo(User::class, 'user_id');
+    //     return $this->hasOne(User::class,'id', 'user_id');
+    // }
 }
