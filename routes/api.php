@@ -34,6 +34,10 @@ Route::group(['middleware' => 'auth.client_token'], function () {
     Route::post('submit_payment',[UserController::class, 'submit_payment']);
     // get_orders_list
     Route::get('get_orders_list/{id}',[InfluencerController::class, 'get_orders_list']);
-    // get_orders_list
+    // get_orders_reels_)list
+    Route::get('get_orders_reels/{id}',[InfluencerController::class, 'get_orders_reels']);
+    Route::delete('delete_reel/{id}',[InfluencerController::class, 'delete_reel']);
+    Route::post('deliver_reels/{id}',[InfluencerController::class, 'deliver_reels']);
+
     
 });

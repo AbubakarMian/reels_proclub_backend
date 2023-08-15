@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Influencer_category;
+use App\Models\Reels;
+use App\Models\Order_Reels;
 use App\Models\Influencer;
 use App\Models\Order;
 use App\Models\Payment;
@@ -202,6 +204,16 @@ class UserController extends Controller
                 $videoPath = $this->moveVideoAndGetPath($video, $root, 'videos');
 
                 // Save the video path in the database or perform any other necessary actions
+                $reel = New Reels();
+                $reel->url = $videoPath;
+                $reel->likes = 1;
+                $reel->save();
+                $order_reels = New Order_Reels();
+                $order_reels->order_id = $request->order_id;
+                $order_reels->reels_id =   $reel->id;
+                $order_reels->save();
+                // Save the video path in the database or perform any other necessary actions
+
 
                 return $this->sendResponse(200, ['video_path' => $videoPath]);
 
@@ -238,10 +250,13 @@ class UserController extends Controller
             throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
         }
     
-        $file_n = $request->file()->name();
-        $file_n_arr = explode('.',$file_n);
-        $exten = $file_n_arr[count($file_n_arr)-1];
-        $filename = time().'.'.$exten;// . '.webm'; // Manually set the extension to "webm"
+        // $file_n = $request->file()->name();
+        // $file_n_arr = explode('.',$file_n);
+        // $exten = $file_n_arr[count($file_n_arr)-1];
+        // $filename = time().'.'.$exten;// . '.webm'; // Manually set the extension to "webm"
+
+        // $file_n = $request->file()->name();
+        $filename = time(). '.webm'; // Manually set the extension to "webm"
         try {
             $file->move($destinationPath, $filename);
         } catch (\Exception $e) {
@@ -349,7 +364,7 @@ class UserController extends Controller
         $order = new Order();
         $order->user_id = $user_id;
         $order->user_influencer_id = $influencer_user_id;
-        $order->status = true;
+        $order->status = 'pending';
         $order->payment_id = $payment->id;
        
         $order->save();
