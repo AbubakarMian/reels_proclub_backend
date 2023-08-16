@@ -37,6 +37,7 @@ class UserController extends Controller
 
                 $user = new User();
                 $user->name = $request->fullname;
+                $user->role_id = $request->role === 'user' ? 2 : 3; // user id is 2 , influencer id is 3
                 // $user->father_name = 'fathername';
                 // $user->age = 'age';
                 // $user->gender = 'gender';
