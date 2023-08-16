@@ -84,10 +84,10 @@
     <br />
     <div class="row">
         <div class="col-md-4">&nbsp;</div>
-        <input hidden value='378'        id="image_width">
-        <input hidden value='226'         id="image_height">
-        <input hidden value='16'        id="aspect_ratio_width">
-        <input hidden value='9'           id="aspect_ratio_height">
+        <input hidden value='512'        id="image_width">
+        <input hidden value='512'         id="image_height">
+        <input hidden value='1.3'        id="aspect_ratio_width">
+        <input hidden value='1.142'           id="aspect_ratio_height">
 
 
         <div class="col-md-4">
