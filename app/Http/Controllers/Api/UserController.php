@@ -270,7 +270,7 @@ class UserController extends Controller
 
     public function get_category(){
         try {
-            $category = Category::paginate(10,['id','name','avatar']);
+            $category = Category::paginate(100,['id','name','avatar']);
             $category = $category->items();
             return $this->sendResponse(200, $category);
         } 
