@@ -24,7 +24,7 @@ use Stripe\Stripe;
 class InfluencerController extends Controller
 {
     
-
+  // FOR Influencer OPEN
     public function get_orders_list($id){
         try {
             $user_influencer_id = $id;
@@ -129,8 +129,65 @@ class InfluencerController extends Controller
 
 
     }
+  // FOR Influencer CLOSE
+
+
+
+
+ // FOR USER  OPEN
+    public function get_order_reviews($id){
+        try {
+            $user_id = $id;
+            $get_order_reviews = Order::where('user_id', $user_id)->paginate(10);
+            $get_order_reviews = $get_order_reviews->items();
+            return $this->sendResponse(200, $get_order_reviews);
+        } catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+        
+
+
+    }
+    public function get_order_reels_user($id){
+        try {
+            $order_id = $id;
+            $order_reels = Order_Reels::where('order_id', $order_id)->get();
+            $reels_urls = [];
+        
+            foreach ($order_reels as $reels) {
+                $reel = Reels::find($reels->reels_id);
+        
+                if ($reel) {
+                    $reels_urls[] = array(
+                        'reels_id' => $reel->id,
+                        'reels_url' => $reel->url,
+                    );
+        
+                    // Get associated order items for the current reel
+                    $order_list = $reel->items;
+        
+                    // Append order items to the response array
+                    $reels_urls[count($reels_urls) - 1]['order_items'] = $order_list;
+                }
+            }
+        
+            return $this->sendResponse(200, $reels_urls);
+        } catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+        
     
     
 
+
+}
 
 }

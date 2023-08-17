@@ -32,12 +32,16 @@ Route::group(['middleware' => 'auth.client_token'], function () {
     Route::get('get_category_people/{id}',[UserController::class, 'get_category_people']);
     Route::get('get_reel_rate/{id}',[UserController::class, 'get_reel_rate']);
     Route::post('submit_payment',[UserController::class, 'submit_payment']);
+       // FOR Influencer
     // get_orders_list
     Route::get('get_orders_list/{id}',[InfluencerController::class, 'get_orders_list']);
     // get_orders_reels_)list
     Route::get('get_orders_reels/{id}',[InfluencerController::class, 'get_orders_reels']);
     Route::delete('delete_reel/{id}',[InfluencerController::class, 'delete_reel']);
     Route::post('deliver_reels/{id}',[InfluencerController::class, 'deliver_reels']);
+    // FOR USER
+    Route::get('get_order_reviews/{id}',[InfluencerController::class, 'get_order_reviews']);
+    Route::get('get_order_reels_user/{id}',[InfluencerController::class, 'get_order_reels_user']);
 
     
 });
