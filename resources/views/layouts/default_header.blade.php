@@ -66,6 +66,15 @@ $admin_common = session()->get('admin_common');
     .medsaveclick {
     padding-top: 15px !important;
 }
+section.dash-tile.bg-warning.modules {
+    background-color: midnightblue;
+    max-height: 105px;
+    display: none;
+}
+button.btn.btn-success.ddd.ccc {
+    display: none;
+}
+
 </style>
 
 <body>
