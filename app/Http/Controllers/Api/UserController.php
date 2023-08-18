@@ -42,8 +42,8 @@ class UserController extends Controller
                 // $user->age = 'age';
                 // $user->gender = 'gender';
                 $user->email = $request->email;
-                $user->email = $request->category_id;
                 $user->phone_no = $request->phone_no;
+                $user->image = asset("theme/images/avatar.jpg");
                 $user->password = Hash::make($request->password);
                 $user->access_token = uniqid();
 
@@ -60,7 +60,7 @@ class UserController extends Controller
                 // $user->institute_id = $institute_id;
                 $user->save();
 
-                if($request->role_id == 3){
+                if($user->role_id == 3){
                     $influencer = new Influencer();
                     $influencer->user_id = $user->id;
                     $influencer->rate_per_reel = $request->rate_per_reel;
@@ -209,8 +209,6 @@ class UserController extends Controller
     public function uploadWebm(Request $request)
     {
         try {
-
-
             
             if ($request->hasFile('video')) {
 
