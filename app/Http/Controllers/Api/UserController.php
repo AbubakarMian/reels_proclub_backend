@@ -42,6 +42,7 @@ class UserController extends Controller
                 // $user->age = 'age';
                 // $user->gender = 'gender';
                 $user->email = $request->email;
+                $user->email = $request->category_id;
                 $user->phone_no = $request->phone_no;
                 $user->password = Hash::make($request->password);
                 $user->access_token = uniqid();
@@ -58,6 +59,19 @@ class UserController extends Controller
                 // $user->qualification_id = $qualification_id;
                 // $user->institute_id = $institute_id;
                 $user->save();
+
+                if($request->role_id == 3){
+                    $influencer = new Influencer();
+                    $influencer->user_id = $user->id;
+                    $influencer->rate_per_reel = $request->rate_per_reel;
+                    $influencer->save();
+
+                    $influencer_category = new Influencer_category();
+                    $influencer_category->user_id = $user->id;
+                    $influencer_category->category_id = $request->category_id;
+                    $influencer_category->influencer_id = $influencer->id;
+                    $influencer_category->save();
+                }
 
                 return $this->sendResponse(200, $user);
             }
