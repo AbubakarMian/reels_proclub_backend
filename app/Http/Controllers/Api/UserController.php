@@ -367,7 +367,8 @@ class UserController extends Controller
         $influencer = Influencer::where('user_id',$influencer_user_id)->with('user')->first();
         \Stripe\Stripe::setApiKey(config('services.stripe.STRIPE_SECRET'));
         $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => $influencer->rate_per_reel,
+            'amount' => 50,
+            // 'amount' => $influencer->rate_per_reel,
             'currency' => 'usd',
             // ... other relevant payment details
         ]);
