@@ -102,6 +102,18 @@ class AdminController extends Controller
             'title'=>'Category'
         ];
        
+        
+        $modules[]= [
+
+            'url'=>'admin/influencer',
+            'title'=>'influencer'
+        ];
+        $modules[]= [
+
+            'url'=>'admin/orders',
+            'title'=>'Orders'
+        ];
+       
 
        
        
