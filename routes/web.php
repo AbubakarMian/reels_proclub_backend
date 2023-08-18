@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\InfluncerController;
+use App\Http\Controllers\Admin\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +40,8 @@ Route::post('admin/category_crop_image', [CategoryController::class, 'crop_image
     
     
     
+Route::get('admin/influncer', [InfluncerController::class, 'index'])->name('influncer.index');
+Route::get('admin/orders', [OrderController::class, 'index'])->name('orders.index');
 
 
 
