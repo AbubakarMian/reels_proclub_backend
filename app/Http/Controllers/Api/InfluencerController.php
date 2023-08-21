@@ -183,11 +183,57 @@ class InfluencerController extends Controller
                 [$e->getMessage()]
             );
         }
-        
-    
-    
-
 
 }
+
+public function reels_accepetd($id){
+    try {
+        $order_id = $id;
+        $order =  Order::find($order_id);
+        $order->status = 'accepted';
+       
+        $order->save();
+        return $this->sendResponse(200, $order);
+    } 
+    
+    catch (\Exception $e) {
+        return $this->sendResponse(
+            500,
+            null,
+            [$e->getMessage()]
+        );
+    }
+
+
+} 
+
+// orders_available
+public function orders_available($id){
+    try {
+        $user_id = $id;
+        $order =  Order::where('user_id',$user_id)->first();
+        if($order){
+            $orders = 'available';
+        }
+        else{
+        $orders = 'no_available';
+        }
+
+      
+        return $this->sendResponse(200, $orders);
+    } 
+    
+    catch (\Exception $e) {
+        return $this->sendResponse(
+            500,
+            null,
+            [$e->getMessage()]
+        );
+    }
+
+
+} 
+    
+
 
 }
