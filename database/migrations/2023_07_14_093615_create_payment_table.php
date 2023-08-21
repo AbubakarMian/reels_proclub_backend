@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('payment', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('payment_id')->nullable()->default(0);
+            $table->string('payment_id')->nullable()->default(null);
             $table->text('payment_response')->nullable()->default(null);
             $table->string('status')->nullable()->default(null);
             $table->string('payment_type')->nullable()->default(null);
