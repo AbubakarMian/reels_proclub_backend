@@ -80,7 +80,6 @@ class InfluencerController extends Controller
 
     }
     
-
     public function delete_reel($id)
     {
         try {
@@ -108,7 +107,6 @@ class InfluencerController extends Controller
         }
     }
 
-
     public function deliver_reels($id){
         try {
             $order_id = $id;
@@ -130,8 +128,6 @@ class InfluencerController extends Controller
 
     }
   // FOR Influencer CLOSE
-
-
 
 
  // FOR USER  OPEN
@@ -186,54 +182,82 @@ class InfluencerController extends Controller
 
 }
 
-public function reels_accepetd($id){
-    try {
-        $order_id = $id;
-        $order =  Order::find($order_id);
-        $order->status = 'accepted';
-       
-        $order->save();
-        return $this->sendResponse(200, $order);
+    public function reels_accepetd($id){
+        try {
+            $order_id = $id;
+            $order =  Order::find($order_id);
+            $order->status = 'accepted';
+        
+            $order->save();
+            return $this->sendResponse(200, $order);
+        } 
+        
+        catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+
     } 
-    
-    catch (\Exception $e) {
-        return $this->sendResponse(
-            500,
-            null,
-            [$e->getMessage()]
-        );
+
+    // orders_available
+    public function orders_available($id){
+        try {
+            $user_id = $id;
+            $order =  Order::where('user_id',$user_id)->first();
+            if($order){
+                $orders = 'available';
+            }
+            else{
+            $orders = 'no_available';
+            }
+
+        
+            return $this->sendResponse(200, $orders);
+        } 
+        
+        catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+
+    } 
+
+    public function get_profile($id)
+    {
+        try {
+            $user = $id;
+
+            if ($user) {
+                $user = User::find($user);
+                return $this->sendResponse(200, $user);
+            } else {
+                return $this->sendResponse(
+                    Config::get('error.code.INTERNAL_SERVER_ERROR'),
+                    null,
+                    ['Wrong OTP'],
+                    Config::get('error.code.INTERNAL_SERVER_ERROR')
+                );
+            }
+        } catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
     }
 
 
-} 
 
-// orders_available
-public function orders_available($id){
-    try {
-        $user_id = $id;
-        $order =  Order::where('user_id',$user_id)->first();
-        if($order){
-            $orders = 'available';
-        }
-        else{
-        $orders = 'no_available';
-        }
-
-      
-        return $this->sendResponse(200, $orders);
-    } 
-    
-    catch (\Exception $e) {
-        return $this->sendResponse(
-            500,
-            null,
-            [$e->getMessage()]
-        );
-    }
-
-
-} 
-    
+        
 
 
 }
