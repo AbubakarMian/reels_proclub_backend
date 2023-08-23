@@ -255,6 +255,66 @@ class InfluencerController extends Controller
         }
     }
 
+    public function user_update_profile(Request $request ,$id)
+    {
+        try {
+            $user = $id;
+
+            if ($user) {
+                $user = User::find($user);
+                $user->name = $request->name;
+                $user->last_name = $request->last_name;
+                $user->email = $request->email;
+                $user->phone_no = $request->phone_no;
+                $user->save();
+                return $this->sendResponse(200, $user);
+            } else {
+                return $this->sendResponse(
+                    Config::get('error.code.INTERNAL_SERVER_ERROR'),
+                    null,
+                    ['Wrong OTP'],
+                    Config::get('error.code.INTERNAL_SERVER_ERROR')
+                );
+            }
+        } catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+    }
+
+    public function upload_image(Request $request, $id)
+    {
+
+        try {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file formats and size
+        ]);
+    
+        if ($request->hasFile('image')) {
+            $avatar = $request->image;
+            $root = $request->root();
+            $user = User::find($id);
+            $user->image = $this->move_img_get_path($avatar, $root, 'image');
+            $user->save();
+           
+        }
+        return $this->sendResponse(200, $user);
+        }
+        catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+    }
+    
+    
+    
 
 
         
