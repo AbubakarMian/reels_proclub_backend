@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth.client_token'], function () {
     Route::post('reels_accepetd/{id}',[InfluencerController::class, 'reels_accepetd']);
     Route::get('orders_available/{id}',[InfluencerController::class, 'orders_available']);
     Route::get('get_profile/{id}',[InfluencerController::class, 'get_profile']);
+    Route::post('user_update_profile/{id}',[InfluencerController::class, 'user_update_profile']);
+    Route::post('upload_image/{id}',[InfluencerController::class, 'upload_image']);
 
     
 });
