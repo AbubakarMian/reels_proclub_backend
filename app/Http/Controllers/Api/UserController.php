@@ -221,10 +221,19 @@ class UserController extends Controller
                 $reel->url = $videoPath;
                 $reel->likes = 1;
                 $reel->save();
+                if($request->order_id != 0){
                 $order_reels = New Order_Reels();
                 $order_reels->order_id = $request->order_id;
                 $order_reels->reels_id =   $reel->id;
                 $order_reels->save();
+                }
+                else if($request->order_id == 0){
+                $user_reels = New User_Reels();
+                $user_reels->reels_id = $reel->id;
+                $user_reels->user_id = $request->user_id;
+                $user_reels->save();
+
+                }
                 // Save the video path in the database or perform any other necessary actions
 
 
