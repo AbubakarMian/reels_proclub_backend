@@ -213,8 +213,8 @@ class UserController extends Controller
             if ($request->hasFile('video')) {
 
                  $video = $request->file('video');
-                $root = public_path();
-                $videoPath = $this->moveVideoAndGetPath($video, $root, 'videos');
+                $root = asset();
+                $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
 
                 // Save the video path in the database or perform any other necessary actions
                 $reel = New Reels();
@@ -247,7 +247,7 @@ class UserController extends Controller
         }
     }
 
-    public function moveVideoAndGetPath($file, $root, $folder)
+    public function moveVideoAndGetPaths($file, $root, $folder)
     {
         if (!$file || !$file->isValid()) {
             throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
