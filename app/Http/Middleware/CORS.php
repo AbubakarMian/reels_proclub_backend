@@ -17,10 +17,20 @@ class CORS
     public function handle($request, Closure $next)
     {
         // header("Access-Control-Allow-Origin: http://localhost:8080");
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
+            // $response->headers->set('Access-Control-Allow-Origin','*');
+            // $request->headers->set('Access-Control-Allow-Origin','*');
+
+
+//             header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Methods: *');
+// header('Access-Control-Allow-Headers: *');
+
+// dd('asd');
 
         // ALLOW OPTIONS METHOD
         $headers = [
+            'Access-Control-Allow-Origin'=> '*',
             'Access-Control-Allow-Methods'=> 'POST, GET, OPTIONS, PUT, DELETE',
             'Access-Control-Allow-Headers'=> 'authorization,client-id,content-type'
         ];

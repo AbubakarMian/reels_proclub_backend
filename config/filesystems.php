@@ -34,6 +34,11 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
+//         'ffmpeg' => [
+//     // ...
+//     'ffprobe.binaries' => 'C:\ffmpeg\bin\ffprobe.exe', // Use the correct path
+//     // ...
+// ],
 
         'public' => [
             'driver' => 'local',
