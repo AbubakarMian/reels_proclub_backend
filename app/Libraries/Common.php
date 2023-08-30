@@ -33,6 +33,30 @@ trait Common
         $remove_index = str_replace("index.php", "", $root);
         return $remove_index . '/images/' . $type . '/' . $name;
     }
+
+    public function move_img_get_path_thumnail($image, $root, $type, $image_name = '')
+{
+    $uniqid = time();
+
+    if (is_string($image)) {
+        // If $image is a string (path or URL), use it directly
+        $imagePath = $image;
+    } else if (is_a($image, 'Illuminate\Http\UploadedFile')) {
+        // If $image is an UploadedFile object, process it
+        $extension = mb_strtolower($image->getClientOriginalExtension());
+        $name = $uniqid . $image_name . '.' . $extension;
+        $imgPath = public_path() . '/images/' . $type;
+        $image->move($imgPath, $name);
+        $remove_index = str_replace("index.php", "", $root);
+        $imagePath = $remove_index . '/images/' . $type . '/' . $name;
+    } else {
+        // Handle other cases (if needed)
+        throw new \InvalidArgumentException('Invalid image provided.');
+    }
+
+    return $imagePath;
+}
+
     // public function export_excel($report_name,$users){
 
     //     Excel::create($report_name, function ($excel) use ($users) {

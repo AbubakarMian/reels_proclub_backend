@@ -213,18 +213,27 @@ class UserController extends Controller
             if ($request->hasFile('video')) {
 
                  $video = $request->file('video');
-                $root = public_path();
-                $videoPath = $this->moveVideoAndGetPath($video, $root, 'videos');
+                $root = asset();
+                $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
 
                 // Save the video path in the database or perform any other necessary actions
                 $reel = New Reels();
                 $reel->url = $videoPath;
                 $reel->likes = 1;
                 $reel->save();
+                if($request->order_id != 0){
                 $order_reels = New Order_Reels();
                 $order_reels->order_id = $request->order_id;
                 $order_reels->reels_id =   $reel->id;
                 $order_reels->save();
+                }
+                else if($request->order_id == 0){
+                $user_reels = New User_Reels();
+                $user_reels->reels_id = $reel->id;
+                $user_reels->user_id = $request->user_id;
+                $user_reels->save();
+
+                }
                 // Save the video path in the database or perform any other necessary actions
 
 
@@ -247,7 +256,7 @@ class UserController extends Controller
         }
     }
 
-    public function moveVideoAndGetPath($file, $root, $folder)
+    public function moveVideoAndGetPaths($file, $root, $folder)
     {
         if (!$file || !$file->isValid()) {
             throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
@@ -365,10 +374,12 @@ class UserController extends Controller
         $influencer_user_id =  $request->influencer_user_id;
         // 
         $influencer = Influencer::where('user_id',$influencer_user_id)->with('user')->first();
+
+        $amount = ($influencer->rate_per_reel * $request->reels_count);
         \Stripe\Stripe::setApiKey(config('services.stripe.STRIPE_SECRET'));
         $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => 50,
-            // 'amount' => $influencer->rate_per_reel,
+            // 'amount' => 50,
+            'amount' => $amount,
             'currency' => 'usd',
             // ... other relevant payment details
         ]);
@@ -377,13 +388,14 @@ class UserController extends Controller
         $payment->payment_response = json_encode($paymentIntent); // Save the full response for reference
         $payment->status = $paymentIntent->status;
         $payment->payment_type = $paymentIntent->payment_method_types[0]; // Assuming you're only using one payment method
-        // $payment->amount = $influencer->rate_per_reel;
+        $payment->amount = $amount;
         $payment->save();
 
         $order = new Order();
         $order->user_id = $user_id;
         $order->user_influencer_id = $influencer_user_id;
         $order->status = 'pending';
+        $order->comments = $request->comments;
         $order->payment_id = $payment->id;
        
         $order->save();
