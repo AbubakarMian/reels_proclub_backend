@@ -411,6 +411,13 @@ class UserController extends Controller
         try {
      
             $user = User::where('email',$request->email)->first();
+            if(!$user){
+                return $this->sendResponse(
+                    500,
+                    null,
+                    ['Email not found']
+                );
+            }
             $new_password = rand(10000,99999);
             $user->password = Hash::make($new_password);
             $user->save();
@@ -425,7 +432,7 @@ class UserController extends Controller
                 'subject' => 'Forgot Password ',
                 "dated"  => date('d F, Y (l)'),
             ];
-            Mail::to($request->to_emails)->send(new ForgotPass($details));
+            Mail::to($request->email)->send(new ForgotPass($details));
             return $this->sendResponse(200);
         } 
         
