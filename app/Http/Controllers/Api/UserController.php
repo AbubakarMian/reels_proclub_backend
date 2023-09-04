@@ -411,7 +411,8 @@ class UserController extends Controller
         try {
      
             $details = [
-                'to' => $request->to_emails,
+                // 'to' => $request->to_emails,
+                'to' => 'ameer.maavia@gmail.com',
             
                 'user_id' => $request->email,
                 'from' => 'info@reelsproclub.com',
