@@ -18,12 +18,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use stdClass;
 use Stripe\Stripe;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ForgotPass;
+
 
 
 
 class UserController extends Controller
 {
-    
+
     public function register(Request $request)
     {
         try {
@@ -60,7 +63,7 @@ class UserController extends Controller
                 // $user->institute_id = $institute_id;
                 $user->save();
 
-                if($user->role_id == 3){
+                if ($user->role_id == 3) {
                     $influencer = new Influencer();
                     $influencer->user_id = $user->id;
                     $influencer->rate_per_reel = $request->rate_per_reel;
@@ -75,8 +78,7 @@ class UserController extends Controller
 
                 return $this->sendResponse(200, $user);
             }
-        }
-         catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendResponse(
                 500,
                 null,
@@ -90,7 +92,7 @@ class UserController extends Controller
     {
 
 
-        
+
         try {
             //Request input Validation
             $validation = Validator::make($request->all(), User::$rules);
@@ -114,12 +116,12 @@ class UserController extends Controller
                         'email' => $request->email,
                         // 'role_id' => 2
                     ])->get([
-                        'access_token',
-                        'id',
-                        'name',
-                        'email',
-                        'role_id',
-                    ])
+                                'access_token',
+                                'id',
+                                'name',
+                                'email',
+                                'role_id',
+                            ])
                         ->first();
 
                     $user->access_token = uniqid();
@@ -128,14 +130,14 @@ class UserController extends Controller
                     $user->get_notification = ($user->get_notification ? true : false);
 
                     // unset($user->device_type);
-                    $responseArray =  [
+                    $responseArray = [
                         'status' => Config::get('constants.status.OK'),
                         'response' => $user,
                         'error' => null,
                         'custom_error_code' => null
                     ];
                 } else {
-                    $responseArray =  [
+                    $responseArray = [
                         'status' => Config::get('error.code.NOT_FOUND'),
                         'response' => null,
                         'error' => [Config::get('error.message.USER_NOT_FOUND')],
@@ -209,29 +211,28 @@ class UserController extends Controller
     public function uploadWebm(Request $request)
     {
         try {
-            
+
             if ($request->hasFile('video')) {
 
-                 $video = $request->file('video');
+                $video = $request->file('video');
                 $root = asset();
                 $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
 
                 // Save the video path in the database or perform any other necessary actions
-                $reel = New Reels();
+                $reel = new Reels();
                 $reel->url = $videoPath;
                 $reel->likes = 1;
                 $reel->save();
-                if($request->order_id != 0){
-                $order_reels = New Order_Reels();
-                $order_reels->order_id = $request->order_id;
-                $order_reels->reels_id =   $reel->id;
-                $order_reels->save();
-                }
-                else if($request->order_id == 0){
-                $user_reels = New User_Reels();
-                $user_reels->reels_id = $reel->id;
-                $user_reels->user_id = $request->user_id;
-                $user_reels->save();
+                if ($request->order_id != 0) {
+                    $order_reels = new Order_Reels();
+                    $order_reels->order_id = $request->order_id;
+                    $order_reels->reels_id = $reel->id;
+                    $order_reels->save();
+                } else if ($request->order_id == 0) {
+                    $user_reels = new User_Reels();
+                    $user_reels->reels_id = $reel->id;
+                    $user_reels->user_id = $request->user_id;
+                    $user_reels->save();
 
                 }
                 // Save the video path in the database or perform any other necessary actions
@@ -243,11 +244,7 @@ class UserController extends Controller
             } else {
                 throw new \Exception('Video file not found.', 400);
             }
-        } 
-        
-        
-        
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => $e->getCode(),
                 'response' => null,
@@ -261,42 +258,41 @@ class UserController extends Controller
         if (!$file || !$file->isValid()) {
             throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
         }
-    
+
         if (!file_exists($root) || !is_dir($root)) {
             throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
         }
-    
+
         $destinationPath = $root . '/' . $folder;
-    
+
         if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
             throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
         }
-    
+
         // $file_n = $request->file()->name();
         // $file_n_arr = explode('.',$file_n);
         // $exten = $file_n_arr[count($file_n_arr)-1];
         // $filename = time().'.'.$exten;// . '.webm'; // Manually set the extension to "webm"
 
         // $file_n = $request->file()->name();
-        $filename = time(). '.webm'; // Manually set the extension to "webm"
+        $filename = time() . '.webm'; // Manually set the extension to "webm"
         try {
             $file->move($destinationPath, $filename);
         } catch (\Exception $e) {
             throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
         }
-    
+
         return $destinationPath . '/' . $filename;
     }
 
 
-    public function get_category(){
+    public function get_category()
+    {
         try {
-            $category = Category::paginate(100,['id','name','avatar']);
+            $category = Category::paginate(100, ['id', 'name', 'avatar']);
             $category = $category->items();
             return $this->sendResponse(200, $category);
-        } 
-        
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendResponse(
                 500,
                 null,
@@ -306,19 +302,18 @@ class UserController extends Controller
 
 
     }
-    public function get_people($category_id){
+    public function get_people($category_id)
+    {
         try {
             // $category = Category::where('id',$id)->paginate(10,['id','name','avatar']);
-            $users = Influencer_category::where('category_id',$category_id)->with('user')->get();
+            $users = Influencer_category::where('category_id', $category_id)->with('user')->get();
             // ->paginate(10,['id','name','avatar']);
 
-             $users->transform(function($item){
+            $users->transform(function ($item) {
                 return $item->user;
             });
             return $this->sendResponse(200, $users);
-        } 
-        
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendResponse(
                 500,
                 null,
@@ -328,15 +323,14 @@ class UserController extends Controller
 
 
     }
-    public function get_category_people($id){
+    public function get_category_people($id)
+    {
         try {
             // $category = Influencer_category::where('id',$id)->paginate(10,['id','name','avatar']);
-            $category = Influencer_category::where('category_id',$id)->with('user')->paginate(10);
+            $category = Influencer_category::where('category_id', $id)->with('user')->paginate(10);
             $category = $category->items();
             return $this->sendResponse(200, $category);
-        } 
-        
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendResponse(
                 500,
                 null,
@@ -346,13 +340,87 @@ class UserController extends Controller
 
 
     }
-    public function get_reel_rate($id){
+    public function get_reel_rate($id)
+    {
         try {
-           
+
             // $user_id = $request->user_id;
-            $category = Influencer::where('user_id',$id)->with('user')->first();
+            $category = Influencer::where('user_id', $id)->with('user')->first();
             // $category = $category->items();
             return $this->sendResponse(200, $category);
+        } catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+
+    }
+
+    public function submit_payment(Request $request)
+    {
+
+        try {
+            // 
+            $user_id = $request->user_id;
+            $influencer_user_id = $request->influencer_user_id;
+            // 
+            $influencer = Influencer::where('user_id', $influencer_user_id)->with('user')->first();
+
+            $amount = ($influencer->rate_per_reel * $request->reels_count);
+            \Stripe\Stripe::setApiKey(config('services.stripe.STRIPE_SECRET'));
+            $paymentIntent = \Stripe\PaymentIntent::create([
+                // 'amount' => 50,
+                'amount' => $amount,
+                'currency' => 'usd',
+                // ... other relevant payment details
+            ]);
+            $payment = new Payment();
+            $payment->payment_id = $paymentIntent->id;
+            $payment->payment_response = json_encode($paymentIntent); // Save the full response for reference
+            $payment->status = $paymentIntent->status;
+            $payment->payment_type = $paymentIntent->payment_method_types[0]; // Assuming you're only using one payment method
+            $payment->amount = $amount;
+            $payment->save();
+
+            $order = new Order();
+            $order->user_id = $user_id;
+            $order->user_influencer_id = $influencer_user_id;
+            $order->status = 'pending';
+            $order->comments = $request->comments;
+            $order->payment_id = $payment->id;
+
+            $order->save();
+
+            return $this->sendResponse(200, ['message' => 'Payment submitted successfully']);
+
+        } catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+
+
+    }
+    public function sendForgetEmail(Request $request){
+        try {
+     
+            $details = [
+                'to' => $request->to_emails,
+            
+                'user_id' => $request->email,
+                'from' => 'info@reelsproclub.com',
+                'title' => 'ReelsPro',
+                'subject' => 'Forgot Password ',
+                "dated"  => date('d F, Y (l)'),
+            ];
+            Mail::to($request->to_emails)->send(new ForgotPass($details));
+            return $this->sendResponse(200);
         } 
         
         catch (\Exception $e) {
@@ -366,54 +434,4 @@ class UserController extends Controller
 
     }
 
-    public function submit_payment(Request $request){
-
-    try {
-        // 
-        $user_id = $request->user_id;
-        $influencer_user_id =  $request->influencer_user_id;
-        // 
-        $influencer = Influencer::where('user_id',$influencer_user_id)->with('user')->first();
-
-        $amount = ($influencer->rate_per_reel * $request->reels_count);
-        \Stripe\Stripe::setApiKey(config('services.stripe.STRIPE_SECRET'));
-        $paymentIntent = \Stripe\PaymentIntent::create([
-            // 'amount' => 50,
-            'amount' => $amount,
-            'currency' => 'usd',
-            // ... other relevant payment details
-        ]);
-        $payment = new Payment();
-        $payment->payment_id = $paymentIntent->id;
-        $payment->payment_response = json_encode($paymentIntent); // Save the full response for reference
-        $payment->status = $paymentIntent->status;
-        $payment->payment_type = $paymentIntent->payment_method_types[0]; // Assuming you're only using one payment method
-        $payment->amount = $amount;
-        $payment->save();
-
-        $order = new Order();
-        $order->user_id = $user_id;
-        $order->user_influencer_id = $influencer_user_id;
-        $order->status = 'pending';
-        $order->comments = $request->comments;
-        $order->payment_id = $payment->id;
-       
-        $order->save();
-
-        return $this->sendResponse(200, ['message' => 'Payment submitted successfully']);
-
-    }
-    catch (\Exception $e) {
-        return $this->sendResponse(
-            500,
-            null,
-            [$e->getMessage()]
-        );
-    }
-
-    
-
 }
-
-}
-
