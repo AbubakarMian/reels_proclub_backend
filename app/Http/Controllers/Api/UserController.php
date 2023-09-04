@@ -410,11 +410,16 @@ class UserController extends Controller
     public function sendForgetEmail(Request $request){
         try {
      
+            $user = User::where('email',$request->email)->first();
+            $new_password = rand(10000,99999);
+            $user->password = Hash::make($new_password);
+            $user->save();
             $details = [
                 // 'to' => $request->to_emails,
                 'to' => 'ameer.maavia@gmail.com',
             
-                'user_id' => $request->email,
+                'user_email' => $request->email,
+                'new_password'=>$new_password,
                 'from' => 'info@reelsproclub.com',
                 'title' => 'ReelsPro',
                 'subject' => 'Forgot Password ',

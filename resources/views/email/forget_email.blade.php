@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <title>new Password</title>
     <style>
         /* Add your custom email styles here */
         body {
@@ -33,17 +34,27 @@
         p {
             color: #555;
         }
+        .password {
+            font-weight: bold;
+            font-size: 18px;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-wrap: break-word; /* Ensure long passwords wrap */
+        }
         a {
             color: #007bff;
             text-decoration: none;
         }
-        .button {
+        .copy-button {
             display: inline-block;
             padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -52,14 +63,38 @@
         <div class="header">
             <img src="../images/logo.png" alt="Company Logo">
         </div>
-        <h1>Forgot Password</h1>
+        <h1>New Password</h1>
         <p>Hello,</p>
-        <p>You've requested to reset your password for your account. To reset your password, click on the following link:</p>
-        <p><a href="INSERT_RESET_LINK_HERE" class="button">Reset Your Password</a></p>
-        <p>If you didn't request this password reset, please ignore this email.</p>
+        <p>You've requested a new password for your account. Here is your new password:</p>
+        <p class="password" id="new-password">{!!$details['new_password']!!}</p>
+        <button class="copy-button" onclick="copynewPassword()">Copy Password</button>
+        <p>Please log in using this new password.</p>
+        <p>If you didn't request this new password, please contact us immediately.</p>
         <p>Thank you,</p>
         <p>Reels Pro Club</p>
-        <p>Contact us at <a href="mailto:info@reelsproclub.com">info@example.com</a> or <a href="tel:+123456789">123-456-789</a></p>
+        <p>Contact us at <a href="mailto:info@reelsproclub.com">info@reelsproclub.com</a></p>
     </div>
+
+    <script>
+        function copynewPassword() {
+            var newPassword = document.getElementById('new-password');
+            var tempPasswordText = newPassword.innerText;
+
+            // Create a new textarea element to copy the text
+            var tempTextarea = document.createElement('textarea');
+            tempTextarea.value = tempPasswordText;
+            document.body.appendChild(tempTextarea);
+
+            // Select and copy the text
+            tempTextarea.select();
+            document.execCommand('copy');
+
+            // Remove the new textarea
+            document.body.removeChild(tempTextarea);
+
+            // Optionally, provide feedback to the user
+            alert('new password copied to clipboard!');
+        }
+    </script>
 </body>
 </html>
