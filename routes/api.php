@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth.client_token'], function () {
     Route::post('my_save_reels/{id}',[InfluencerController::class, 'my_save_reels']);
     Route::post('upload_order_reels',[UserController::class, 'uploadWebm']);
 
-    Route::get('forget_email',[UserController::class, 'sendForgetEmail']);
+    Route::post('forget_email',[UserController::class, 'sendForgetEmail']);
 
     
 });
