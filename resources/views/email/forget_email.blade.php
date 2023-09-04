@@ -61,7 +61,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="../images/logo.png" alt="Company Logo">
+            <img src="{!! asset('images/logo.png')!!}" alt="Company Logo">
         </div>
         <h1>New Password</h1>
         <p>Hello,</p>
