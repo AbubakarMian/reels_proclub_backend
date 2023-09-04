@@ -67,7 +67,6 @@
         <p>Hello,</p>
         <p>You've requested a new password for your account. Here is your new password:</p>
         <p class="password" id="new-password">{!!$details['new_password']!!}</p>
-        <button class="copy-button" onclick="copynewPassword()">Copy Password</button>
         <p>Please log in using this new password.</p>
         <p>If you didn't request this new password, please contact us immediately.</p>
         <p>Thank you,</p>
@@ -75,26 +74,5 @@
         <p>Contact us at <a href="mailto:info@reelsproclub.com">info@reelsproclub.com</a></p>
     </div>
 
-    <script>
-        function copynewPassword() {
-            var newPassword = document.getElementById('new-password');
-            var tempPasswordText = newPassword.innerText;
-
-            // Create a new textarea element to copy the text
-            var tempTextarea = document.createElement('textarea');
-            tempTextarea.value = tempPasswordText;
-            document.body.appendChild(tempTextarea);
-
-            // Select and copy the text
-            tempTextarea.select();
-            document.execCommand('copy');
-
-            // Remove the new textarea
-            document.body.removeChild(tempTextarea);
-
-            // Optionally, provide feedback to the user
-            alert('new password copied to clipboard!');
-        }
-    </script>
 </body>
 </html>
