@@ -33,8 +33,13 @@ class InfluencerController extends Controller
     public function get_orders_list($id){
         try {
             $user_influencer_id = $id;
-            $order_list = Order::where('user_influencer_id',$user_influencer_id)->with('user')->paginate(10);
+            $order_list = Order::where('user_influencer_id',$user_influencer_id)->with('user','influencer')->paginate(10);
+            // $user_influencer = Influencer::where('');
             $order_list = $order_list->items();
+            // $responseData = [
+            //     'order_list' => $order_list,
+            //     'user_influencer' => $user_influencer,
+            // ];
             return $this->sendResponse(200, $order_list);
         } 
         
@@ -367,7 +372,6 @@ class InfluencerController extends Controller
         }
 
     }
-
     public function my_save_reels(Request $request, $id)
     {
 
@@ -377,14 +381,13 @@ class InfluencerController extends Controller
             $video = $request->file('video');
             $root = asset('/');
             $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
-            // Save the video path in the database or perform any other necessary actions
 
+            // Save the video path in the database or perform any other necessary actions
             $reel = New Reels();
             $reel->url = $videoPath;
             $reel->likes = 1;
             $reel->save();
             // 
-          
             $user_reels = New User_Reels();
             $user_reels->reels_id = $reel->id;
             $user_reels->user_id = $id;
@@ -403,72 +406,72 @@ class InfluencerController extends Controller
 
     }
     
-    public function upload_order_reels(Request $request, $id)
-    {
+    // public function upload_order_reels(Request $request, $id)
+    // {
 
-        try {
-            if ($request->hasFile('video')) {
+    //     try {
+    //         if ($request->hasFile('video')) {
 
             $video = $request->file('video');
             $root = asset('/');
             $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
             // Save the video path in the database or perform any other necessary actions
 
-            $reel = New Reels();
-            $reel->url = $videoPath;
-            $reel->likes = 1;
-            $reel->save();
-            // 
+    //         $reel = New Reels();
+    //         $reel->url = $videoPath;
+    //         $reel->likes = 1;
+    //         $reel->save();
+    //         // 
           
-            $user_reels = New User_Reels();
-            $user_reels->reels_id = $reel->id;
-            $user_reels->user_id = $id;
-            $user_reels->save();
+    //         $user_reels = New User_Reels();
+    //         $user_reels->reels_id = $reel->id;
+    //         $user_reels->user_id = $id;
+    //         $user_reels->save();
            
-        }
-        return $this->sendResponse(200, $reel);
-        }
-        catch (\Exception $e) {
-            return $this->sendResponse(
-                500,
-                null,
-                [$e->getMessage()]
-            );
-        }
+    //     }
+    //     return $this->sendResponse(200, $reel);
+    //     }
+    //     catch (\Exception $e) {
+    //         return $this->sendResponse(
+    //             500,
+    //             null,
+    //             [$e->getMessage()]
+    //         );
+    //     }
 
-    }
+    // }
 
-    public function moveVideoAndGetPaths($file, $root, $folder)
-    {
-        if (!$file || !$file->isValid()) {
-            throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
-        }
+    // public function moveVideoAndGetPaths($file, $root, $folder)
+    // {
+    //     if (!$file || !$file->isValid()) {
+    //         throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
+    //     }
     
-        if (!file_exists($root) || !is_dir($root)) {
-            throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
-        }
+    //     if (!file_exists($root) || !is_dir($root)) {
+    //         throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
+    //     }
     
-        $destinationPath = $root . '/' . $folder;
+    //     $destinationPath = $root . '/' . $folder;
     
-        if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
-            throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
-        }
+    //     if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
+    //         throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
+    //     }
     
-        // $file_n = $request->file()->name();
-        // $file_n_arr = explode('.',$file_n);
-        // $exten = $file_n_arr[count($file_n_arr)-1];
-        // $filename = time().'.'.$exten;// . '.webm'; // Manually set the extension to "webm"
+    //     // $file_n = $request->file()->name();
+    //     // $file_n_arr = explode('.',$file_n);
+    //     // $exten = $file_n_arr[count($file_n_arr)-1];
+    //     // $filename = time().'.'.$exten;// . '.webm'; // Manually set the extension to "webm"
 
-        // $file_n = $request->file()->name();
-        $filename = time(). '.webm'; // Manually set the extension to "webm"
-        try {
-            $file->move($destinationPath, $filename);
-        } catch (\Exception $e) {
-            throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
-        }
+    //     // $file_n = $request->file()->name();
+    //     $filename = time(). '.webm'; // Manually set the extension to "webm"
+    //     try {
+    //         $file->move($destinationPath, $filename);
+    //     } catch (\Exception $e) {
+    //         throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
+    //     }
     
-        return $destinationPath . '/' . $filename;
-    }
+    //     return $destinationPath . '/' . $filename;
+    // }
     
     
     

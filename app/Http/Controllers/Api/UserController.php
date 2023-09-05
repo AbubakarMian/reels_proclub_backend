@@ -166,48 +166,6 @@ class UserController extends Controller
     }
 
 
-
-    // video_upload
-
-    // public function video_upload(Request $request)
-    // {
-    //     try {
-    //         if ($request->hasFile('video')) {
-    //             $video = $request->file('video');
-    //             $root = public_path();
-    //             $videoPath = $this->move_video_get_path($video, $root, 'videos');
-
-    //             // Save the video path in the database
-    //             // $videoModel = new Video();
-    //             // $videoModel->title = $request->input('title'); // Assuming you have a form field for the video title
-    //             // $videoModel->video_path = $videoPath;
-    //             // $videoModel->save();
-    //         } else {
-    //             throw new \Exception('Video file not found.', 400);
-    //         }
-
-    //         $res = new stdClass();
-    //         $res->video = $videoPath;
-
-    //         return response()->json($res, 200);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'status' => $e->getCode(),
-    //             'response' => null,
-    //             'error' => [$e->getMessage()],
-    //         ], $e->getCode());
-    //     }
-    // }
-
-
-    // public function move_video_get_path($file, $root, $folder)
-    // {
-    //     $destinationPath = $root . '/' . $folder; // Define the destination folder path
-    //     $filename = time() . '.' . $file->getClientOriginalExtension(); // Generate a unique filename
-    //     $file->move($destinationPath, $filename); // Move the file to the destination folder
-
-    //     return $destinationPath . '/' . $filename; // Return the full path of the uploaded file
-    // }
     public function uploadWebm(Request $request)
     {
         try {
@@ -216,7 +174,14 @@ class UserController extends Controller
 
                 $video = $request->file('video');
                 $root = asset('/');
+                // $root = asset();
+                // $root = $request->root();
+                if($request->camera_open){
                 $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
+                }
+                else{
+                $videoPath = $this->move_img_get_path($video, $root, 'videos');   
+                }
 
                 // Save the video path in the database or perform any other necessary actions
                 $reel = new Reels();
@@ -253,38 +218,7 @@ class UserController extends Controller
         }
     }
 
-    public function moveVideoAndGetPaths($file, $root, $folder)
-    {
-        if (!$file || !$file->isValid()) {
-            throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
-        }
-
-        if (!file_exists($root) || !is_dir($root)) {
-            throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
-        }
-
-        $destinationPath = $root . '/' . $folder;
-
-        if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
-            throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
-        }
-
-        // $file_n = $request->file()->name();
-        // $file_n_arr = explode('.',$file_n);
-        // $exten = $file_n_arr[count($file_n_arr)-1];
-        // $filename = time().'.'.$exten;// . '.webm'; // Manually set the extension to "webm"
-
-        // $file_n = $request->file()->name();
-        $filename = time() . '.webm'; // Manually set the extension to "webm"
-        try {
-            $file->move($destinationPath, $filename);
-        } catch (\Exception $e) {
-            throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
-        }
-
-        return $destinationPath . '/' . $filename;
-    }
-
+ 
 
     public function get_category()
     {
@@ -365,9 +299,17 @@ class UserController extends Controller
         try {
             // 
             $user_id = $request->user_id;
-            $influencer_user_id = $request->influencer_user_id;
+            $influencer_object = $request->influencer_user_id;
+            $id_user_influencer = $request->id_user_influencer;
             // 
-            $influencer = Influencer::where('user_id', $influencer_user_id)->with('user')->first();
+            $influencer = Influencer::where('user_id', $id_user_influencer)->with('user')->first();
+            // if($influencer->rate_per_reel ){
+            //  $rate_per_reel = $influencer->rate_per_reel;
+
+            // }
+            // else{
+            //     $rate_per_reel = 10;
+            // }
 
             $amount = ($influencer->rate_per_reel * $request->reels_count);
             \Stripe\Stripe::setApiKey(config('services.stripe.STRIPE_SECRET'));
@@ -387,7 +329,8 @@ class UserController extends Controller
 
             $order = new Order();
             $order->user_id = $user_id;
-            $order->user_influencer_id = $influencer_user_id;
+            $order->user_influencer_id = $id_user_influencer;
+            $order->number_reels = $request->reels_count;
             $order->status = 'pending';
             $order->comments = $request->comments;
             $order->payment_id = $payment->id;
