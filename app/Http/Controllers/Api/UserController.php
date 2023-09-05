@@ -194,6 +194,12 @@ class UserController extends Controller
                     $order_reels->order_id = $request->order_id;
                     $order_reels->reels_id = $reel->id;
                     $order_reels->save();
+
+                    
+                    $user_reels = new User_Reels();
+                    $user_reels->reels_id = $reel->id;
+                    $user_reels->user_id = $request->user_id;
+                    $user_reels->save();
                 } else if ($request->order_id == 0) {
                     $user_reels = new User_Reels();
                     $user_reels->reels_id = $reel->id;
