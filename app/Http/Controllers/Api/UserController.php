@@ -173,7 +173,7 @@ class UserController extends Controller
             if ($request->hasFile('video')) {
 
                 $video = $request->file('video');
-                $root = asset('/');
+                $root = public_path();
                 // $root = asset();
                 // $root = $request->root();
                 if($request->camera_open){
