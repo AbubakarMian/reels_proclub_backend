@@ -379,8 +379,9 @@ class InfluencerController extends Controller
             if ($request->hasFile('video')) {
 
             $video = $request->file('video');
-            $root = $request->root();
-            $videoPath = $this->move_img_get_path($video, $root, 'videos');
+            $root = asset('/');
+            $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
+
             // Save the video path in the database or perform any other necessary actions
             $reel = New Reels();
             $reel->url = $videoPath;
@@ -411,10 +412,10 @@ class InfluencerController extends Controller
     //     try {
     //         if ($request->hasFile('video')) {
 
-    //         $video = $request->file('video');
-    //         $root = asset();
-    //         $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
-    //         // Save the video path in the database or perform any other necessary actions
+            $video = $request->file('video');
+            $root = asset('/');
+            $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
+            // Save the video path in the database or perform any other necessary actions
 
     //         $reel = New Reels();
     //         $reel->url = $videoPath;
