@@ -23,16 +23,38 @@ trait Common
         return $users;
     }
 
-    public function move_img_get_path($image,$root,$type,$image_name='')
-    {
-        $uniqid = time();
-        $extension = mb_strtolower($image->getClientOriginalExtension());
-        $name = $uniqid . $image_name . '.' . $extension;//.$image->getClientOriginalName();
-        $imgPath = public_path() . '/images/' . $type;
-        $image->move($imgPath, $name);
-        $remove_index = str_replace("index.php", "", $root);
-        return $remove_index . '/images/' . $type . '/' . $name;
+    // public function move_img_get_path($image,$root,$type,$image_name='')
+    // {
+    //     $uniqid = time();
+    //     $extension = mb_strtolower($image->getClientOriginalExtension());
+    //     $name = $uniqid . $image_name . '.' . $extension;//.$image->getClientOriginalName();
+    //     $imgPath = public_path() . '/images/' . $type;
+    //     $image->move($imgPath, $name);
+    //     $remove_index = str_replace("index.php", "", $root);
+    //     return $remove_index . '/images/' . $type . '/' . $name;
+    // }
+    public function move_img_get_path($media, $root, $type, $media_name = '')
+{
+    $uniqid = time();
+    $extension = mb_strtolower($media->getClientOriginalExtension());
+    $name = $uniqid . $media_name . '.' . $extension;
+    $mediaPath = public_path() . '/media/' . $type;
+
+    // Check if the media is an image or a video
+    $isImage = strpos($media->getClientMimeType(), 'image') !== false;
+
+    if ($isImage) {
+        $mediaPath .= '/images/';
+    } else {
+        $mediaPath .= '/videos/';
     }
+
+    $media->move($mediaPath, $name);
+    $remove_index = str_replace("index.php", "", $root);
+
+    return $remove_index . '/media/' . $type . '/' . ($isImage ? 'images/' : 'videos/') . $name;
+}
+
 
     public function move_img_get_path_thumnail($image, $root, $type, $image_name = '')
 {
@@ -56,6 +78,40 @@ trait Common
 
     return $imagePath;
 }
+ 
+ 
+public function moveVideoAndGetPaths($file, $root, $folder)
+{
+    if (!$file || !$file->isValid()) {
+        throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
+    }
+
+    if (!file_exists($root) || !is_dir($root)) {
+        throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
+    }
+
+    $destinationPath = $root . '/' . $folder;
+
+    if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
+        throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
+    }
+
+    // $file_n = $request->file()->name();
+    // $file_n_arr = explode('.',$file_n);
+    // $exten = $file_n_arr[count($file_n_arr)-1];
+    // $filename = time().'.'.$exten;// . '.webm'; // Manually set the extension to "webm"
+
+    // $file_n = $request->file()->name();
+    $filename = time() . '.webm'; // Manually set the extension to "webm"
+    try {
+        $file->move($destinationPath, $filename);
+    } catch (\Exception $e) {
+        throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
+    }
+
+    return $destinationPath . '/' . $filename;
+}
+
 
     // public function export_excel($report_name,$users){
 

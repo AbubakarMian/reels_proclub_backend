@@ -17,6 +17,11 @@ class Order extends Model
         // return $this->belongsTo(User::class, 'user_id');
         return $this->hasOne(User::class,'id', 'user_id');
     }
+    public function influencer()
+    {
+        // return $this->belongsTo(User::class, 'user_id');
+        return $this->hasOne(Influencer::class,'user_id', 'user_influencer_id');
+    }
 
     // public function user_influencer()
     // {
