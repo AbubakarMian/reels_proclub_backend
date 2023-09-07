@@ -144,7 +144,121 @@ public function move_img_get_path($media, $root, $type, $media_name = '')
 //     return $destinationPath . '/' . $filename;
 // }
 
-public function moveVideoAndGetPaths($file, $root, $folder)
+// public function moveVideoAndGetPaths($file, $root, $folder)
+// {
+//     if (!$file || !$file->isValid()) {
+//         throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
+//     }
+
+//     if (!file_exists($root) || !is_dir($root)) {
+//         throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
+//     }
+
+//     // Determine the subfolder (e.g., "camera_videos/video/") based on the provided folder
+//     $subfolder = $folder;
+
+//     // Construct the destination path including the subfolder
+//     $destinationPath = $root . '/media/' . $subfolder;
+
+//     if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
+//         throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
+//     }
+
+//     // Get the original file extension
+//     $originalExtension = $file->getClientOriginalExtension();
+
+//     // Generate a unique filename based on the current timestamp and original extension
+//     $filename = time() . '.' . $originalExtension;
+
+//     // try {
+//     //     $file->move($destinationPath, $filename);
+//     // } catch (\Exception $e) {
+//     //     throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
+//     // }
+//     try {
+//         // Use the full destination path, including the filename
+//         $file->move($destinationPath, $filename);
+//     } catch (\Exception $e) {
+//         // Check if the destination folder exists and is writable
+//         if (!file_exists($destinationPath) || !is_writable($destinationPath)) {
+//             throw new \RuntimeException('Destination folder is missing or not writable.', 500);
+//         }
+        
+//         throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
+//     }
+
+//     // Construct the URL with the "public" segment and the subfolder
+//     $url = asset("media/{$subfolder}/{$filename}");
+
+//     return $url;
+// }
+
+// public function moveVideoAndGetPaths($file, $root, $folder)
+// {
+//     if (!$file || !$file->isValid()) {
+//         throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
+//     }
+
+//     // Construct the destination path
+//     $destinationPath = $root . '/media/' . $folder;
+
+//     // Check if the destination folder exists or create it if it doesn't
+//     if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
+//         mkdir($destinationPath, 0755, true); // Create the directory recursively
+//     }
+
+//     // Get the original file extension
+//     $originalExtension = $file->getClientOriginalExtension();
+
+//     // Generate a unique filename based on the current timestamp and original extension
+//     $filename = time() . '.' . $originalExtension;
+
+//     try {
+//         $file->move($destinationPath, $filename);
+//     } catch (\Exception $e) {
+//         throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
+//     }
+
+//     // Construct the URL with the "public" segment
+//     $url = asset("media/{$folder}/{$filename}");
+
+//     return $url;
+// }
+// public function moveVideoAndGetPaths($file, $root, $folder)
+// {
+//     if (!$file || !$file->isValid()) {
+//         throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
+//     }
+
+//     // Construct the destination path using public_path() and the subdirectory name
+//     $destinationPath = public_path('media/' . $folder);
+
+//     // Ensure that the destination directory exists; create it if it doesn't
+//     if (!file_exists($destinationPath)) {
+//         mkdir($destinationPath, 0755, true);
+//     }
+
+//     // Get the original file extension
+//     $originalExtension = $file->getClientOriginalExtension();
+
+//     // Generate a unique filename based on the current timestamp and original extension
+//     $filename = time() . '.' . $originalExtension;
+
+//     // Construct the full path for the destination file
+//     $destinationFile = $destinationPath . '/' . $filename;
+
+//     // Copy the uploaded file to the destination
+//     if (!copy($file->getRealPath(), $destinationFile)) {
+//         throw new \RuntimeException('Error copying the uploaded file.', 500);
+//     }
+
+//     // Construct the URL with the "public" segment and the subdirectory
+//     $url = asset("media/{$folder}/{$filename}");
+
+//     return $url;
+// }
+
+public function moveVideoAndGetPath($file, $root, $folder)
 {
     if (!$file || !$file->isValid()) {
         throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
@@ -154,21 +268,13 @@ public function moveVideoAndGetPaths($file, $root, $folder)
         throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
     }
 
-    // Determine the subfolder (e.g., "camera_videos/video/") based on the provided folder
-    $subfolder = $folder;
-
-    // Construct the destination path including the subfolder
-    $destinationPath = $root . '/media/' . $subfolder;
+    $destinationPath = $root . '/' . $folder;
 
     if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
         throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
     }
 
-    // Get the original file extension
-    $originalExtension = $file->getClientOriginalExtension();
-
-    // Generate a unique filename based on the current timestamp and original extension
-    $filename = time() . '.' . $originalExtension;
+    $filename = time() . '.webm'; // Manually set the extension to "webm"
 
     try {
         $file->move($destinationPath, $filename);
@@ -176,11 +282,14 @@ public function moveVideoAndGetPaths($file, $root, $folder)
         throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
     }
 
-    // Construct the URL with the "public" segment and the subfolder
-    $url = asset("media/{$subfolder}/{$filename}");
-
-    return $url;
+    return $destinationPath . '/' . $filename;
 }
+
+
+
+
+
+
 
 
 
