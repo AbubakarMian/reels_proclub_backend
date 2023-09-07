@@ -167,63 +167,120 @@ class UserController extends Controller
     }
 
 
-    public function uploadWebm(Request $request)
-    {
-        try {
+    // public function uploadWebm(Request $request)
+    // {
+    //     try {
 
-            if ($request->hasFile('video')) {
+    //         if ($request->hasFile('video')) {
 
-                $video = $request->file('video');
-                $root = public_path();
-                // $root = asset();
-                // $root = $request->root();
-                if($request->camera_open){
-                $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
-                }
-                else{
-                $videoPath = $this->move_img_get_path($video, $root, 'videos');   
-                }
+    //             $video = $request->file('video');
+    //             $root = public_path();
+    //             // $root = asset();
+    //             // $root = $request->root();
+    //             if($request->camera_open){
+    //             $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
+    //             }
+    //             else{
+    //             $videoPath = $this->move_img_get_path($video, $root, 'videos');   
+    //             }
 
-                // Save the video path in the database or perform any other necessary actions
-                $reel = new Reels();
-                $reel->url = $videoPath;
-                $reel->likes = 1;
-                $reel->save();
-                if ($request->order_id != 0) {
-                    $order_reels = new Order_Reels();
-                    $order_reels->order_id = $request->order_id;
-                    $order_reels->reels_id = $reel->id;
-                    $order_reels->save();
+    //             // Save the video path in the database or perform any other necessary actions
+    //             $reel = new Reels();
+    //             $reel->url = $videoPath;
+    //             $reel->likes = 1;
+    //             $reel->save();
+    //             if ($request->order_id != 0) {
+    //                 $order_reels = new Order_Reels();
+    //                 $order_reels->order_id = $request->order_id;
+    //                 $order_reels->reels_id = $reel->id;
+    //                 $order_reels->save();
 
                     
-                    $user_reels = new User_Reels();
-                    $user_reels->reels_id = $reel->id;
-                    $user_reels->user_id = $request->user_id;
-                    $user_reels->save();
-                } else if ($request->order_id == 0) {
-                    $user_reels = new User_Reels();
-                    $user_reels->reels_id = $reel->id;
-                    $user_reels->user_id = $request->user_id;
-                    $user_reels->save();
+    //                 $user_reels = new User_Reels();
+    //                 $user_reels->reels_id = $reel->id;
+    //                 $user_reels->user_id = $request->user_id;
+    //                 $user_reels->save();
+    //             } else if ($request->order_id == 0) {
+    //                 $user_reels = new User_Reels();
+    //                 $user_reels->reels_id = $reel->id;
+    //                 $user_reels->user_id = $request->user_id;
+    //                 $user_reels->save();
 
-                }
-                // Save the video path in the database or perform any other necessary actions
+    //             }
+    //             // Save the video path in the database or perform any other necessary actions
 
 
-                return $this->sendResponse(200, ['video_path' => $videoPath]);
+    //             return $this->sendResponse(200, ['video_path' => $videoPath]);
 
-                // return response()->json(['video_path' => $videoPath], 200);
-            } else {
-                throw new \Exception('Video file not found.', 400);
+    //             // return response()->json(['video_path' => $videoPath], 200);
+    //         } else {
+    //             throw new \Exception('Video file not found.', 400);
+    //         }
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => $e->getCode(),
+    //             'response' => null,
+    //             'error' => [$e->getMessage()],
+    //         ], $e->getCode());
+    //     }
+    // }
+    public function uploadWebm(Request $request)
+{
+    try {
+        if ($request->hasFile('video')) {
+            $video = $request->file('video');
+            $root = public_path();
+
+            // Process the video upload as needed
+            // $videoPath = $this->move_img_get_path($video, $root, 'all_videos');
+            if($request->camera_open){
+            $videoPath = $this->moveVideoAndGetPaths($video, $root, 'camera_videos');
             }
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => $e->getCode(),
-                'response' => null,
-                'error' => [$e->getMessage()],
-            ], $e->getCode());
+            else{
+            $videoPath = $this->move_img_get_path($video, $root, 'upload_videos');
+            }
+
+            // Save the video path in the database or perform other necessary actions
+            $reel = new Reels();
+            $reel->url = asset($videoPath); 
+            $reel->likes = 1;
+            $reel->save();
+
+            if ($request->order_id != 0) {
+                                $order_reels = new Order_Reels();
+                                $order_reels->order_id = $request->order_id;
+                                $order_reels->reels_id = $reel->id;
+                                $order_reels->save();
+            
+                                
+                                $user_reels = new User_Reels();
+                                $user_reels->reels_id = $reel->id;
+                                $user_reels->user_id = $request->user_id;
+                                $user_reels->save();
+                            } else if ($request->order_id == 0) {
+                                $user_reels = new User_Reels();
+                                $user_reels->reels_id = $reel->id;
+                                $user_reels->user_id = $request->user_id;
+                                $user_reels->save();
+            
+                            }
+
+            // Return a success response with a valid HTTP status code
+            return response()->json(['video_path' => $videoPath], 200);
+        } else {
+            // Handle the case where no video file was found
+            throw new \Exception('Video file not found.', 400);
         }
+    } catch (\Exception $e) {
+        // Handle exceptions and return an error response with a valid HTTP status code
+        return response()->json([
+            'status' => $e->getCode(),
+            'response' => null,
+            'error' => [$e->getMessage()],
+        ], $e->getCode());
     }
+}
+
 
  
 
