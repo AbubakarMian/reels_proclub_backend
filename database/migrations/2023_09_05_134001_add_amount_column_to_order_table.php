@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('order', function (Blueprint $table) {
-            //
+        Schema::table('payment', function (Blueprint $table) {
+            $table->float('amount')->nullable()->default(0);
         });
     }
 
