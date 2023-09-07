@@ -259,20 +259,20 @@ public function move_img_get_path($media, $root, $type, $media_name = '')
 // }
 
 public function moveVideoAndGetPath($file, $root, $folder)
-{
-    if (!$file || !$file->isValid()) {
-        throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
-    }
+{ 
+    // if (!$file || !$file->isValid()) {
+    //     throw new \InvalidArgumentException('Invalid or empty file provided.', 400);
+    // }
 
-    if (!file_exists($root) || !is_dir($root)) {
-        throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
-    }
+    // if (!file_exists($root) || !is_dir($root)) {
+    //     throw new \InvalidArgumentException('Destination root folder does not exist or is not a directory.', 400);
+    // }
 
     $destinationPath = $root . '/' . $folder;
-
-    if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
-        throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
-    }
+// dd($root , $folder);
+    // if (!file_exists($destinationPath) || !is_dir($destinationPath)) {
+    //     throw new \InvalidArgumentException('Destination folder does not exist or is not a directory.', 400);
+    // }
 
     $filename = time() . '.webm'; // Manually set the extension to "webm"
 
@@ -282,7 +282,8 @@ public function moveVideoAndGetPath($file, $root, $folder)
         throw new \RuntimeException('Error moving the uploaded file: ' . $e->getMessage(), 500);
     }
 
-    return $destinationPath . '/' . $filename;
+    return asset('/'.$folder. '/' . $filename) ;
+    // return $destinationPath . '/' . $filename;
 }
 
 

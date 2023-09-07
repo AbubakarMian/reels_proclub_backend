@@ -170,7 +170,7 @@ class UserController extends Controller
     // public function uploadWebm(Request $request)
     // {
     //     try {
-
+        // dd('commentedasd');
     //         if ($request->hasFile('video')) {
 
     //             $video = $request->file('video');
@@ -234,7 +234,8 @@ class UserController extends Controller
             // Process the video upload as needed
             // $videoPath = $this->move_img_get_path($video, $root, 'all_videos');
             if($request->camera_open){
-            $videoPath = $this->moveVideoAndGetPaths($video, $root, 'camera_videos');
+               
+            $videoPath = $this->moveVideoAndGetPath($video, $root, 'camera_videos');
             }
             else{
             $videoPath = $this->move_img_get_path($video, $root, 'upload_videos');
@@ -266,7 +267,12 @@ class UserController extends Controller
                             }
 
             // Return a success response with a valid HTTP status code
-            return response()->json(['video_path' => $videoPath], 200);
+            // return response()->json(['video_path' => $videoPath], 200);
+            $res = new \stdClass();
+            $res->video_path = $videoPath;
+            // dd('res',$res);
+            return $this->sendResponse(200, $res);
+
         } else {
             // Handle the case where no video file was found
             throw new \Exception('Video file not found.', 400);
