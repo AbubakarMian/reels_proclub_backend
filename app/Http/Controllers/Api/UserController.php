@@ -306,11 +306,16 @@ class UserController extends Controller
 
 
     }
-    public function get_people($category_id)
+    public function get_people($category_id=0)
     {
         try {
             // $category = Category::where('id',$id)->paginate(10,['id','name','avatar']);
-            $users = Influencer_category::where('category_id', $category_id)->with('user')->get();
+            if($category_id){
+                $users = Influencer_category::where('category_id', $category_id)->with('user')->get();
+            }
+            else{
+                $users = Influencer_category::with('user')->get();
+            }
             // ->paginate(10,['id','name','avatar']);
 
             $users->transform(function ($item) {
