@@ -21,9 +21,7 @@ use stdClass;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPass;
-
-
-
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -50,6 +48,8 @@ class UserController extends Controller
                 $user->image = asset("theme/images/avatar.jpg");
                 $user->password = Hash::make($request->password);
                 $user->access_token = uniqid();
+                $user->lat = $request->lat;
+                $user->long = $request->long;
 
                 // $user->required_tutor_class_id = $required_tutor_class_id;
                 // $user->latitude = lat;
@@ -68,6 +68,8 @@ class UserController extends Controller
                     $influencer = new Influencer();
                     $influencer->user_id = $user->id;
                     $influencer->rate_per_reel = $request->rate_per_reel;
+                    $influencer->lat = $request->lat;
+                    $influencer->long = $request->long;
                     $influencer->save();
 
                     $influencer_category = new Influencer_category();
@@ -306,21 +308,44 @@ class UserController extends Controller
 
 
     }
-    public function get_people($category_id=0)
+    public function get_people(Request $request,$category_id=0)
     {
         try {
             // $category = Category::where('id',$id)->paginate(10,['id','name','avatar']);
+            $user = $request->attributes->get('user');
+            $lat = $user->lat;
+            $long = $user->long;
+            // dd($user );
             if($category_id){
-                $users = Influencer_category::where('category_id', $category_id)->with('user')->get();
+                // $users = Influencer_category::where('category_id', $category_id)->with('user')
+                // ;
+                $users = Influencer::join('users','users.id','influencer.user_id')
+                                    ->join('influencer_category','users.id','influencer_category.user_id')
+            
+                        ;
             }
             else{
-                $users = Influencer_category::with('user')->get();
+                // $users = Influencer_category::with('user');
             }
+            $raw_q = "6371 * acos(cos(radians(" . $lat . ")) 
+
+            * cos(radians(users.lat)) 
+    
+            * cos(radians(users.long) - radians(" . $long . ")) 
+    
+            + sin(radians(" .$lat. ")) 
+    
+            * sin(radians(users.lat))) AS distance";
+            // dd($raw_q);
+            $users = $users->select('users.*',
+            DB::Raw($raw_q))
+            ->orderby('distance','asc')
+            ->get();//toSql()
             // ->paginate(10,['id','name','avatar']);
 
-            $users->transform(function ($item) {
-                return $item->user;
-            });
+            // $users->transform(function ($item) {
+            //     return $item->user;
+            // });
             return $this->sendResponse(200, $users);
         } catch (\Exception $e) {
             return $this->sendResponse(
