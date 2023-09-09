@@ -106,7 +106,7 @@ class AdminController extends Controller
         $modules[]= [
 
             'url'=>'admin/influencer',
-            'title'=>'influencer'
+            'title'=>'Influencer'
         ];
         $modules[]= [
 
