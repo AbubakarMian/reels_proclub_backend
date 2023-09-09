@@ -28,7 +28,8 @@ Route::group(['middleware' => 'auth.client_token'], function () {
     Route::post('login',[UserController::class, 'login']);
     Route::post('video_upload',[UserController::class, 'uploadWebm']);
     Route::get('get_cat',[UserController::class, 'get_category']);
-    Route::get('get_people/{id}',[UserController::class, 'get_people']);
+    Route::get('get_people',[UserController::class, 'get_people']);
+    // Route::get('get_people/{id}',[UserController::class, 'get_people']);
     Route::get('get_category_people/{id}',[UserController::class, 'get_category_people']);
     Route::get('get_reel_rate/{id}',[UserController::class, 'get_reel_rate']);
     Route::post('submit_payment',[UserController::class, 'submit_payment']);
