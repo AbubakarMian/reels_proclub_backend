@@ -244,7 +244,8 @@ class UserController extends Controller
 
                 // Save the video path in the database or perform other necessary actions
                 $reel = new Reels();
-                $reel->url = asset($videoPath);
+                // $reel->url = asset($videoPath);
+                $reel->url = $videoPath;
                 $reel->likes = 1;
                 $reel->save();
 
