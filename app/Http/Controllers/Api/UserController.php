@@ -331,7 +331,7 @@ class UserController extends Controller
 
                 }
                 if($is_featured){
-                    $users = $users->where('influencer_category.is_featured', $is_featured);
+                    $users = $users->where('influencer.is_featured', $is_featured);
                 }
                 if($search){
                     $users = $users->where('users.name', $search);
