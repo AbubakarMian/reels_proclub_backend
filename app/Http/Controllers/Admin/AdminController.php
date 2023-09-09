@@ -118,13 +118,13 @@ class AdminController extends Controller
        
        
       //// display none kr dia hai eports ko default header main
+      $reports=[];
+        // $reports[] = [
 
-        $reports[] = [
+        //     'url' => 'admin/course_register',
+        //     'title' => 'Course Register ',
 
-            'url' => 'admin/course_register',
-            'title' => 'Course Register ',
-
-        ];
+        // ];
         // $reports[] = [
 
         //     'url' => 'admin/reports/permissions',

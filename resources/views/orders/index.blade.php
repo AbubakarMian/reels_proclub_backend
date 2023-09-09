@@ -30,16 +30,11 @@ width="400px" style="table-layout:fixed;"
 	<tr>
 
 
-        <th> Name</th>
-        {{-- <th> Description</th> --}}
-        {{-- <th> Image</th> --}}
-
-
-	    {{-- <th>Edit  </th> --}}
-		{{-- <th>Delete  </th> --}}
-
-
-
+        <th> User</th>
+        <th> Influencer</th>
+        <th> Number Of Reels</th>
+        <th> Amount</th>
+        <th> Status</th>
 	</tr>
 </thead>
 <tbody>
@@ -51,7 +46,11 @@ width="400px" style="table-layout:fixed;"
 
 
 
-		<td >{!! ucwords($c->name ) !!} </td>
+		<td >{!! ucwords($c->user->name ) !!} </td>
+		<td >{!! ucwords($c->influencer->user->name ) !!} </td>
+		<td >{!! $c->number_reels  !!} </td>
+		<td >{!! $c->amount  !!} </td>
+		<td >{!! ucwords($c->status)  !!} </td>
 		{{-- <td >{!!ucwords($c->description) !!}</td> --}}
         <?php if (!$c->avatar) {
 			$c->avatar = asset('images/logo.png');
