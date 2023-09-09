@@ -327,14 +327,14 @@ class UserController extends Controller
             ;
             if(!$is_all){           
                 if ($category_id) {
-                    $users = $users::where('influencer_category.category_id', $category_id);
+                    $users = $users->where('influencer_category.category_id', $category_id);
 
                 }
                 if($is_featured){
-                    $users = $users::where('influencer_category.is_featured', $is_featured);
+                    $users = $users->where('influencer_category.is_featured', $is_featured);
                 }
                 if($search){
-                    $users = $users::where('users.name', $search);
+                    $users = $users->where('users.name', $search);
                 }
             }
             
