@@ -1,6 +1,6 @@
 @extends('layouts.default_module')
 @section('module_name')
-    User
+Influencer
 @stop
 
 @section('table-properties')
@@ -25,6 +25,66 @@
     .fhgyt td {
         border: 1px solid #e3e6f3 !important;
         background: #f9f9f9
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
     }
 </style>
 @section('table')
@@ -76,7 +136,7 @@
                         for (var i = 0; i < len; i++) {
                             var id = response['data'][i].id;
                             var influencer_id = response['data'][i].influencer_id;
-                            var name = response['data'][i].first_name;
+                            var name = response['data'][i].name;
                             var email = response['data'][i].email;
                             var number = response['data'][i].phone_no;
                             var is_featured = response['data'][i].is_featured;
@@ -96,26 +156,30 @@
                             // 'employee'   => '4',
 
 
-
+                            var is_checked = is_featured ? 'checked' : '';
+                            var onclick = "toggle_featured('" + influencer_id + "')";
 
                             var image_col = `<img width="100px" src="` + image +
                                 `" class="show-product-img imgshow">`
 
                             var tr_str = `<tr>` +
-                                `<td>` + image + `</td>` +
+                                `<td>` + image_col + `</td>` +
                                 `<td>` + name + `</td>` +
                                 `<td>` + email + `</td>` +
                                 `<td>` + number + `</td>` +
                                 // `<td>` + influencer_id + `</td>` +
-								`<td><button class="btn btn-danger" id="featured_` + influencer_id + `" >featured</button></td>`
-                        //         `<td>
-						// <button id="featured_` + influencer_id + `" class="` + is_featured ? 'class_featured' : 'class_notfeatured' +`"
+                                `<td><label class="switch">
+								<input id="featured_` + influencer_id + `" type="checkbox" ` + is_checked + ` onclick="` + onclick + `">
+								<span class="slider round "></span>
+								</label></td>`
+                            //         `<td>
+                        // <button id="featured_` + influencer_id + `" class="` + is_featured ? 'class_featured' : 'class_notfeatured' +`"
                         //          onclick('is_featured_on_off(` + influencer_id + `)')>On</button>` +
 
-                        //         +`</td>` +
-						// `<td><button id="featured_` + influencer_id + `" >asd</button></td>`
-						
-                                "</tr>";
+                            //         +`</td>` +
+                            // `<td><button id="featured_` + influencer_id + `" >asd</button></td>`
+
+                            "</tr>";
 
                             $("#userTableAppend tbody").append(tr_str);
                         }
@@ -131,28 +195,31 @@
             }
 
 
-            function is_featured_on_off(influencer_id) {
-                // $.ajax({
-                // 	url:'{!! asset('influencer/set_featured') !!}'
-                // 	success(function(res){
-                // 		if(res.status){
-                if ($('#featured_' + influencer_id).hasClass('class_featured')) {
-                    $('#featured_' + influencer_id).removeClass('class_featured');
-                    $('#featured_' + influencer_id).addClass('class_notfeatured');
-                } else {
-                    $('#featured_' + influencer_id).removeClass('class_notfeatured');
-                    $('#featured_' + influencer_id).addClass('class_featured');
-                }
-                // 	}
-                // }),
-                // error(function(e){
-                // 	console.log(e);
-                // })
-                // })
-            }
+
 
         });
 
+
+		
+            function toggle_featured(influencer_id) {
+                // var featured_ckbox = $('#featured_' + influencer_id);
+                // featured_ckbox.prop("checked", !featured_ckbox.prop("checked"));
+                // return;
+                $.ajax({
+                    url: '{!! asset("admin/influencer/set_featured") !!}/' + influencer_id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('response', response);
+                        if (response.status) {
+
+                        }
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                })
+            }
         function set_msg_modal(msg) {
             $('.set_msg_modal').html(msg);
         }
