@@ -316,16 +316,17 @@ class UserController extends Controller
             $lat = $user->lat;
             $long = $user->long;
             // dd($user );
-            if($category_id){
-                // $users = Influencer_category::where('category_id', $category_id)->with('user')
-                // ;
-                $users = Influencer::join('users','users.id','influencer.user_id')
+            $users = Influencer::join('users','users.id','influencer.user_id')
                                     ->join('influencer_category','users.id','influencer_category.user_id')
             
                         ;
-            }
-            else{
-                // $users = Influencer_category::with('user');
+            if($category_id){
+                // $users = Influencer_category::where('category_id', $category_id)->with('user')
+                // ;
+                // $users = Influencer::join('users','users.id','influencer.user_id')
+                //                     ->join('influencer_category','users.id','influencer_category.user_id');
+            
+                $users = $users->where('influencer_category.category_id',$category_id);
             }
             $raw_q = "6371 * acos(cos(radians(" . $lat . ")) 
 
