@@ -172,7 +172,7 @@ class UserController extends Controller
     // public function uploadWebm(Request $request)
     // {
     //     try {
-        // dd('commentedasd');
+    // dd('commentedasd');
     //         if ($request->hasFile('video')) {
 
     //             $video = $request->file('video');
@@ -197,7 +197,7 @@ class UserController extends Controller
     //                 $order_reels->reels_id = $reel->id;
     //                 $order_reels->save();
 
-                    
+
     //                 $user_reels = new User_Reels();
     //                 $user_reels->reels_id = $reel->id;
     //                 $user_reels->user_id = $request->user_id;
@@ -227,70 +227,69 @@ class UserController extends Controller
     //     }
     // }
     public function uploadWebm(Request $request)
-{
-    try {
-        if ($request->hasFile('video')) {
-            $video = $request->file('video');
-            $root = public_path();
+    {
+        try {
+            if ($request->hasFile('video')) {
+                $video = $request->file('video');
+                $root = public_path();
 
-            // Process the video upload as needed
-            // $videoPath = $this->move_img_get_path($video, $root, 'all_videos');
-            if($request->camera_open){
-               
-            $videoPath = $this->moveVideoAndGetPath($video, $root, 'camera_videos');
+                // Process the video upload as needed
+                // $videoPath = $this->move_img_get_path($video, $root, 'all_videos');
+                if ($request->camera_open) {
+
+                    $videoPath = $this->moveVideoAndGetPath($video, $root, 'camera_videos');
+                } else {
+                    $videoPath = $this->move_img_get_path($video, $root, 'upload_videos');
+                }
+
+                // Save the video path in the database or perform other necessary actions
+                $reel = new Reels();
+                $reel->url = asset($videoPath);
+                $reel->likes = 1;
+                $reel->save();
+
+                if ($request->order_id != 0) {
+                    $order_reels = new Order_Reels();
+                    $order_reels->order_id = $request->order_id;
+                    $order_reels->reels_id = $reel->id;
+                    $order_reels->save();
+
+
+                    $user_reels = new User_Reels();
+                    $user_reels->reels_id = $reel->id;
+                    $user_reels->user_id = $request->user_id;
+                    $user_reels->save();
+                } else if ($request->order_id == 0) {
+                    $user_reels = new User_Reels();
+                    $user_reels->reels_id = $reel->id;
+                    $user_reels->user_id = $request->user_id;
+                    $user_reels->save();
+
+                }
+
+                // Return a success response with a valid HTTP status code
+                // return response()->json(['video_path' => $videoPath], 200);
+                $res = new \stdClass();
+                $res->video_path = $videoPath;
+                // dd('res',$res);
+                return $this->sendResponse(200, $res);
+
+            } else {
+                // Handle the case where no video file was found
+                throw new \Exception('Video file not found.', 400);
             }
-            else{
-            $videoPath = $this->move_img_get_path($video, $root, 'upload_videos');
-            }
-
-            // Save the video path in the database or perform other necessary actions
-            $reel = new Reels();
-            $reel->url = asset($videoPath); 
-            $reel->likes = 1;
-            $reel->save();
-
-            if ($request->order_id != 0) {
-                                $order_reels = new Order_Reels();
-                                $order_reels->order_id = $request->order_id;
-                                $order_reels->reels_id = $reel->id;
-                                $order_reels->save();
-            
-                                
-                                $user_reels = new User_Reels();
-                                $user_reels->reels_id = $reel->id;
-                                $user_reels->user_id = $request->user_id;
-                                $user_reels->save();
-                            } else if ($request->order_id == 0) {
-                                $user_reels = new User_Reels();
-                                $user_reels->reels_id = $reel->id;
-                                $user_reels->user_id = $request->user_id;
-                                $user_reels->save();
-            
-                            }
-
-            // Return a success response with a valid HTTP status code
-            // return response()->json(['video_path' => $videoPath], 200);
-            $res = new \stdClass();
-            $res->video_path = $videoPath;
-            // dd('res',$res);
-            return $this->sendResponse(200, $res);
-
-        } else {
-            // Handle the case where no video file was found
-            throw new \Exception('Video file not found.', 400);
+        } catch (\Exception $e) {
+            // Handle exceptions and return an error response with a valid HTTP status code
+            return response()->json([
+                'status' => $e->getCode(),
+                'response' => null,
+                'error' => [$e->getMessage()],
+            ], $e->getCode());
         }
-    } catch (\Exception $e) {
-        // Handle exceptions and return an error response with a valid HTTP status code
-        return response()->json([
-            'status' => $e->getCode(),
-            'response' => null,
-            'error' => [$e->getMessage()],
-        ], $e->getCode());
     }
-}
 
 
- 
+
 
     public function get_category()
     {
@@ -308,40 +307,56 @@ class UserController extends Controller
 
 
     }
-    public function get_people(Request $request,$category_id=0)
+    public function get_people(Request $request)
     {
         try {
             // $category = Category::where('id',$id)->paginate(10,['id','name','avatar']);
             $user = $request->attributes->get('user');
             $lat = $user->lat;
             $long = $user->long;
-            // dd($user );
-            $users = Influencer::join('users','users.id','influencer.user_id')
-                                    ->join('influencer_category','users.id','influencer_category.user_id')
-            
-                        ;
-            if($category_id){
-                // $users = Influencer_category::where('category_id', $category_id)->with('user')
-                // ;
-                // $users = Influencer::join('users','users.id','influencer.user_id')
-                //                     ->join('influencer_category','users.id','influencer_category.user_id');
-            
-                $users = $users->where('influencer_category.category_id',$category_id);
+
+            $category_id = $request->category_id;
+            $is_all = $request->is_all;
+            $is_featured = $request->is_featured;
+            $is_nearby = $request->category_id;
+            $search = $request->search ?? '';
+
+            $users = Influencer::join('users', 'users.id', 'influencer.user_id')
+                ->join('influencer_category', 'users.id', 'influencer_category.user_id')
+
+            ;
+            if(!$is_all){           
+                if ($category_id) {
+                    $users = $users::where('influencer_category.category_id', $category_id);
+
+                }
+                if($is_featured){
+                    $users = $users::where('influencer_category.is_featured', $is_featured);
+                }
+                if($search){
+                    $users = $users::where('users.name', $search);
+                }
             }
+            
             $raw_q = "6371 * acos(cos(radians(" . $lat . ")) 
 
             * cos(radians(users.lat)) 
     
             * cos(radians(users.long) - radians(" . $long . ")) 
     
-            + sin(radians(" .$lat. ")) 
+            + sin(radians(" . $lat . ")) 
     
             * sin(radians(users.lat))) AS distance";
-            // dd($raw_q);
-            $users = $users->select('users.*',
-            DB::Raw($raw_q))
-            ->orderby('distance','asc')
-            ->get();//toSql()
+            
+            $users = $users->select(
+                'users.*',
+                DB::Raw($raw_q)
+            );
+            
+            if($is_nearby){
+                $users = $users->orderby('distance', 'asc');
+            }
+            $users = $users->get(); //toSql()
             // ->paginate(10,['id','name','avatar']);
 
             // $users->transform(function ($item) {
@@ -452,36 +467,35 @@ class UserController extends Controller
 
 
     }
-    public function sendForgetEmail(Request $request){
+    public function sendForgetEmail(Request $request)
+    {
         try {
-     
-            $user = User::where('email',$request->email)->first();
-            if(!$user){
+
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
                 return $this->sendResponse(
                     500,
                     null,
                     ['Email not found']
                 );
             }
-            $new_password = rand(10000,99999);
+            $new_password = rand(10000, 99999);
             $user->password = Hash::make($new_password);
             $user->save();
             $details = [
                 // 'to' => $request->to_emails,
                 'to' => 'ameer.maavia@gmail.com',
-            
+
                 'user_email' => $request->email,
-                'new_password'=>$new_password,
+                'new_password' => $new_password,
                 'from' => 'info@reelsproclub.com',
                 'title' => 'ReelsPro',
                 'subject' => 'Forgot Password ',
-                "dated"  => date('d F, Y (l)'),
+                "dated" => date('d F, Y (l)'),
             ];
             Mail::to($request->email)->send(new ForgotPass($details));
             return $this->sendResponse(200);
-        } 
-        
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendResponse(
                 500,
                 null,
