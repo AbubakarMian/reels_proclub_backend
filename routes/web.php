@@ -42,6 +42,8 @@ Route::post('admin/category_crop_image', [CategoryController::class, 'crop_image
     
 Route::get('admin/influencer', [InfluncerController::class, 'index'])->name('influncer.index');
 Route::get('admin/get_influencer', [InfluncerController::class, 'getUsers'])->name('influncer.index');
+Route::get('admin/influencer/set_featured/{influencer_id}', [InfluncerController::class, 'set_featured'])->name('influncer.index');
+
 Route::get('admin/orders', [OrderController::class, 'index'])->name('orders.index');
 
 

@@ -31,4 +31,14 @@ class InfluncerController extends Controller
         echo json_encode($userData);
 
     }
+
+    function set_featured(Request $request,$influencer_id){
+
+        $influencer = Influencer::find($influencer_id);
+        $influencer->is_featured = !$influencer->is_featured;
+        $influencer->save();
+
+        return $this->sendResponse(200,$influencer);
+
+    }
 }
