@@ -33,7 +33,8 @@ class InfluencerController extends Controller
     public function get_orders_list($id){
         try {
             $user_influencer_id = $id;
-            $order_list = Order::where('user_influencer_id',$user_influencer_id)->with('user','influencer')->paginate(10);
+            $order_list = Order::where('user_influencer_id',$user_influencer_id)
+            ->with('user','influencer')->paginate(10);
             // $user_influencer = Influencer::where('');
             $order_list = $order_list->items();
             // $responseData = [

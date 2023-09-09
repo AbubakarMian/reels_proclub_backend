@@ -404,6 +404,7 @@ class UserController extends Controller
             $order->status = 'pending';
             $order->comments = $request->comments;
             $order->payment_id = $payment->id;
+            $order->amount = $amount;
 
             $order->save();
 

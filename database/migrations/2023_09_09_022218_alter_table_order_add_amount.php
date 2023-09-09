@@ -13,10 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('payment', function (Blueprint $table) {
-            $table->dropColumn('amount');
-        });
-        Schema::table('payment', function (Blueprint $table) {
+        Schema::table('order', function (Blueprint $table) {
             $table->float('amount')->nullable()->default(0);
         });
     }
@@ -28,8 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('order', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };
