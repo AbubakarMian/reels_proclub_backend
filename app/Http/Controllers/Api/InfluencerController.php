@@ -381,7 +381,7 @@ class InfluencerController extends Controller
 
             $video = $request->file('video');
             $root = public_path();
-            $videoPath = $this->moveVideoAndGetPaths($video, $root, 'videos');
+            $videoPath = $this->moveVideoAndGetPath($video, $root, 'videos');
 
             // Save the video path in the database or perform any other necessary actions
             $reel = New Reels();
