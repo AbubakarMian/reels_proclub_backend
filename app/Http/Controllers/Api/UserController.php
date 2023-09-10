@@ -249,23 +249,22 @@ class UserController extends Controller
                 $reel->likes = 1;
                 $reel->save();
 
-                if ($request->order_id != 0) {
+                $order = Order::find($request->order_id);
+                if ($order) {
                     $order_reels = new Order_Reels();
                     $order_reels->order_id = $request->order_id;
                     $order_reels->reels_id = $reel->id;
                     $order_reels->save();
 
-
                     $user_reels = new User_Reels();
                     $user_reels->reels_id = $reel->id;
                     $user_reels->user_id = $request->user_id;
                     $user_reels->save();
-                } else if ($request->order_id == 0) {
+                } else  {//if $order
                     $user_reels = new User_Reels();
                     $user_reels->reels_id = $reel->id;
                     $user_reels->user_id = $request->user_id;
                     $user_reels->save();
-
                 }
 
                 // Return a success response with a valid HTTP status code
@@ -280,13 +279,13 @@ class UserController extends Controller
                 throw new \Exception('Video file not found.', 400);
             }
         } catch (\Exception $e) {
-            // Handle exceptions and return an error response with a valid HTTP status code
-            return response()->json([
-                'status' => $e->getCode(),
-                'response' => null,
-                'error' => [$e->getMessage()],
-            ], $e->getCode());
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
         }
+
     }
 
 
