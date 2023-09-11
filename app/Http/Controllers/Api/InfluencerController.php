@@ -59,7 +59,7 @@ class InfluencerController extends Controller
     public function get_orders_reels($id){
         try {
             $order_id = $id;
-            $order_reels = Order_Reels::where('order_id', $order_id)->get();
+            $order_reels = Order_Reels::where('order_id', $order_id)->orderby('created_at','desc')->get();
             $order = Order::find($order_id);
             $order_quantity = $order->quantity;
             $reels_urls = [];
