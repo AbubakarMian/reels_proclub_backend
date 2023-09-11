@@ -294,7 +294,7 @@ class UserController extends Controller
     public function get_category()
     {
         try {
-            $category = Category::paginate(100, ['id', 'name', 'avatar']);
+            $category = Category::paginate(500, ['id', 'name', 'avatar']);
             $category = $category->items();
             return $this->sendResponse(200, $category);
         } catch (\Exception $e) {
@@ -377,7 +377,9 @@ class UserController extends Controller
     {
         try {
             // $category = Influencer_category::where('id',$id)->paginate(10,['id','name','avatar']);
-            $category = Influencer_category::where('category_id', $id)->with('user')->paginate(10);
+            $category = Influencer_category::where('category_id', $id)->with('user')
+            ->orderby('create_at','desc')
+            ->paginate(500);
             $category = $category->items();
             return $this->sendResponse(200, $category);
         } catch (\Exception $e) {
@@ -454,7 +456,10 @@ class UserController extends Controller
 
             $order->save();
 
-            return $this->sendResponse(200, ['message' => 'Payment submitted successfully']);
+            $order = Order::with('user','influencer','payment')->find($order->id);
+            
+
+            return $this->sendResponse(200, $order);
 
         } catch (\Exception $e) {
             return $this->sendResponse(
