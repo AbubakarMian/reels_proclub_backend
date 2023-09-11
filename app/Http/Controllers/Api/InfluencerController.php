@@ -272,7 +272,7 @@ class InfluencerController extends Controller
 
     
     
-    public function reels_reject(Request $request,$id){
+    public function reels_redo(Request $request,$id){
         try {
 
             $order_id = $id;
