@@ -19,18 +19,20 @@ class Order extends Model
     }
     public function influencer()
     {
-        // return $this->belongsTo(User::class, 'user_id');
         return $this->hasOne(Influencer::class,'user_id', 'user_influencer_id');
     }
     public function payment()
     {
-        // return $this->belongsTo(User::class, 'user_id');
         return $this->hasOne(Payment::class,'id', 'payment_id');
     }
 
-    // public function user_influencer()
-    // {
-    //     // return $this->belongsTo(User::class, 'user_id');
-    //     return $this->hasOne(User::class,'id', 'user_id');
-    // }
+    public function reviews()
+    {
+        return $this->hasMany(OrderReviews::class,'order_id', 'id');
+    }
+
+    public function reels()
+    {
+        return $this->hasMany(Order_ReelsZ::class,'order_id', 'id');
+    }
 }

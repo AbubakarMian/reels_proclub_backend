@@ -6,15 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Order_Reels extends Model
+class OrderReviews extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'order_reels';
-
-    
-    public function reel()
-    {
-        return $this->hasOne(Reels::class,'id', 'reels_id');
-    }
+    protected $table = 'order_reviews';
 }

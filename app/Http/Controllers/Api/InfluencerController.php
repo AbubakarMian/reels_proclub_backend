@@ -12,6 +12,7 @@ use App\Models\Influencer;
 use App\Models\Order;
 use App\Models\Reels;
 use App\Models\Order_Reels;
+use App\Models\OrderReviews;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
@@ -149,7 +150,7 @@ class InfluencerController extends Controller
     public function get_order_reviews($id){
         try {
             $user_id = $id;
-            $get_order_reviews = Order::where('user_id', $user_id)
+            $get_order_reviews = Order::with('user','influencer.user','reviews')->where('user_id', $user_id)
             ->orderby('created_at','desc')->paginate(500);
             $get_order_reviews = $get_order_reviews->items();
             return $this->sendResponse(200, $get_order_reviews);
@@ -164,39 +165,23 @@ class InfluencerController extends Controller
 
 
     }
-    public function get_order_reels_user($id) {
+    public function get_order_reels_user($order_id) {
         try {
-            $order_id = $id;
-            $order_reels = Order_Reels::where('order_id', $order_id)->get();
-            $order = Order::find($order_id);
-            $order_status = $order->status;
+            $order = Order::with('user','influencer.user','reviews','reels.reel')
+                            ->find($order_id);
             $reels_data = [];
     
-            foreach ($order_reels as $reels) {
-                $reel = Reels::find($reels->reels_id);
-    
-                if ($reel) {
+            foreach ($order->reels as $order_reel) {
+                $reel = $order_reel->reel;
                     $reelData = [
                         'reels_id' => $reel->id,
                         'reels_url' => $reel->url,
-                    ];
-    
-                    // Generate a thumbnail for the video reel's URL
-                    // $file =  $reel->url;
-                    // $thumbnailAndImageUrls = $this->generateThumbnailAndMoveImage($reel->url, public_path(), 'thumbnails');
-                    // $reelData['thumbnail_url'] = $thumbnailAndImageUrls['thumbnail_url'];
-              
-    
-                    // Get associated order items for the current reel
-                    $order_list = $reel->items;
-    
-                    // Append order items to the response array
-                    $reelData['order_items'] = $order_list;
-                    $reelData['order_status'] = $order_status;
-    
-                    $reels_data[] = $reelData;
-                }
+                    ];    
+                    $reels_data[] = $reelData;                
             }
+            $res = new \stdClass();
+            $res->order = $order;
+            $res->reels = $reels_data;
     
             return $this->sendResponse(200, $reels_data);
         } catch (\Exception $e) {
@@ -244,13 +229,70 @@ class InfluencerController extends Controller
     
     
     
-    public function reels_accepetd($id){
+    public function reels_accepetd(Request $request,$id){
         try {
+
             $order_id = $id;
             $order =  Order::find($order_id);
             $order->status = 'accepted';
-        
             $order->save();
+
+            $influencer = Influencer::where('user_id',$order->user_influencer_id)->with('user')->first();
+                          
+            if($request->rating ){
+                $influencer->rating = (($influencer->rating+$request->rating)/2);
+                $influencer->save();
+                $order->rating = $request->rating;
+                $order->save();
+            }
+            if($request->review){
+                $order_review = new OrderReviews();
+                $order_review->user_id = $order->user_id;
+                $order_review->user_influencer_id = $order->user_influencer_id ;
+                $order_review->created_by_id = $order->user_influencer_id ;
+                $order_review->review = substr($request->review,0,999 );
+                $order_review->type = 'final' ;
+
+                $order_review->save();
+            }
+
+            return $this->sendResponse(200, $order);
+        } 
+        
+        catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+
+
+    } 
+
+    
+    
+    public function reels_reject(Request $request,$id){
+        try {
+
+            $order_id = $id;
+            $order =  Order::find($order_id);
+            $order->status = 'pending';
+            $order->save();
+
+            // $influencer = Influencer::where('user_id',$order->user_influencer_id)->with('user')->first();
+                          
+            if($request->review){
+                $order_review = new OrderReviews();
+                $order_review->user_id = $order->user_id;
+                $order_review->user_influencer_id = $order->user_influencer_id ;
+                $order_review->created_by_id = $order->user_influencer_id ;
+                $order_review->review = substr($request->review,0,999 );
+                $order_review->type = 'disscussion' ;
+
+                $order_review->save();
+            }
+
             return $this->sendResponse(200, $order);
         } 
         

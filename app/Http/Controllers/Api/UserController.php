@@ -21,6 +21,7 @@ use stdClass;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPass;
+use App\Models\OrderReviews;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -421,13 +422,6 @@ class UserController extends Controller
             $id_user_influencer = $request->id_user_influencer;
             // 
             $influencer = Influencer::where('user_id', $id_user_influencer)->with('user')->first();
-            // if($influencer->rate_per_reel ){
-            //  $rate_per_reel = $influencer->rate_per_reel;
-
-            // }
-            // else{
-            //     $rate_per_reel = 10;
-            // }
 
             $amount = ($influencer->rate_per_reel * $request->reels_count);
             \Stripe\Stripe::setApiKey(config('services.stripe.STRIPE_SECRET'));
@@ -455,6 +449,8 @@ class UserController extends Controller
             $order->amount = $amount;
 
             $order->save();
+
+          
 
             $order = Order::with('user','influencer','payment')->find($order->id);
             
