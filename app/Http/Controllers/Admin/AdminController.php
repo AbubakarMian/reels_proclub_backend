@@ -21,15 +21,7 @@ class AdminController extends Controller
 
     function checklogin(Request $request)
     {
-        // dd('hello');
-        // dd($request->email);
-       $arham =  $request->email;
-
-
-
-
-
-       
+    //    $arham =  $request->email;
         $this->validate(
             $request, [
             'email'   => 'required|email',

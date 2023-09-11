@@ -247,7 +247,7 @@ class UserController extends Controller
                 $reel = new Reels();
                 // $reel->url = asset($videoPath);
                 $reel->url = $videoPath;
-                $reel->likes = 1;
+                $reel->likes = 0;
                 $reel->save();
 
                 $order = Order::find($request->order_id);
@@ -256,22 +256,19 @@ class UserController extends Controller
                     $order_reels->order_id = $request->order_id;
                     $order_reels->reels_id = $reel->id;
                     $order_reels->save();
-
-                    $user_reels = new User_Reels();
-                    $user_reels->reels_id = $reel->id;
-                    $user_reels->user_id = $request->user_id;
-                    $user_reels->save();
-                } else  {//if $order
-                    $user_reels = new User_Reels();
-                    $user_reels->reels_id = $reel->id;
-                    $user_reels->user_id = $request->user_id;
-                    $user_reels->save();
                 }
+ 
+                $user_reels = new User_Reels();
+                $user_reels->reels_id = $reel->id;
+                $user_reels->user_id = $request->user_id;
+                $user_reels->save();
+                
 
                 // Return a success response with a valid HTTP status code
                 // return response()->json(['video_path' => $videoPath], 200);
                 $res = new \stdClass();
                 $res->video_path = $videoPath;
+                $res->reel = $reel;
                 // dd('res',$res);
                 return $this->sendResponse(200, $res);
 
@@ -377,7 +374,6 @@ class UserController extends Controller
     public function get_category_people($id)
     {
         try {
-            // $category = Influencer_category::where('id',$id)->paginate(10,['id','name','avatar']);
             $category = Influencer_category::where('category_id', $id)->with('user')
             ->orderby('create_at','desc')
             ->paginate(500);
@@ -423,7 +419,7 @@ class UserController extends Controller
             // 
             $influencer = Influencer::where('user_id', $id_user_influencer)->with('user')->first();
 
-            $amount = ($influencer->rate_per_reel * $request->reels_count);
+            $amount = ($influencer->rate_per_reel * $request->reels_count) * 100; //since amount is entered in cents
             \Stripe\Stripe::setApiKey(config('services.stripe.STRIPE_SECRET'));
             $paymentIntent = \Stripe\PaymentIntent::create([
                 // 'amount' => 50,
