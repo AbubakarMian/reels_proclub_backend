@@ -348,6 +348,7 @@ class UserController extends Controller
             
             $users = $users->select(
                 'users.*',
+                'influencer.rating',
                 DB::Raw($raw_q)
             );
             
