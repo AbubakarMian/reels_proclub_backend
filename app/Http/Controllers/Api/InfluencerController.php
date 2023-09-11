@@ -34,7 +34,7 @@ class InfluencerController extends Controller
         try {
             $user_influencer_id = $id;
             $order_list = Order::where('user_influencer_id',$user_influencer_id)
-            ->with('user','influencer')->paginate(10);
+            ->with('user','influencer')->orderby('created_at','desc')->paginate(500);
             // $user_influencer = Influencer::where('');
             $order_list = $order_list->items();
             // $responseData = [
@@ -149,7 +149,8 @@ class InfluencerController extends Controller
     public function get_order_reviews($id){
         try {
             $user_id = $id;
-            $get_order_reviews = Order::where('user_id', $user_id)->paginate(10);
+            $get_order_reviews = Order::where('user_id', $user_id)
+            ->orderby('created_at','desc')->paginate(500);
             $get_order_reviews = $get_order_reviews->items();
             return $this->sendResponse(200, $get_order_reviews);
         } catch (\Exception $e) {
