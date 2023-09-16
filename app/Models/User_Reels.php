@@ -10,4 +10,11 @@ class User_Reels extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'user_reels';
+
+    
+
+    public function reels()
+    {
+        return $this->hasOne(Reels::class,'id', 'reels_id');
+    }
 }

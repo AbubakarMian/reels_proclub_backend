@@ -59,7 +59,7 @@ class InfluencerController extends Controller
     public function get_orders_reels($id){
         try {
             $order_id = $id;
-            $order_reels = Order_Reels::where('order_id', $order_id)->get();
+            $order_reels = Order_Reels::where('order_id', $order_id)->orderby('created_at','desc')->get();
             $order = Order::find($order_id);
             $order_quantity = $order->quantity;
             $reels_urls = [];
@@ -91,11 +91,44 @@ class InfluencerController extends Controller
                 [$e->getMessage()]
             );
         }
-        
-
-
     }
     
+    public function get_influencer_reels($influencer_user_id){
+        try {
+            $order_id = $id;
+            // $order_reels = Order_Reels::where('order_id', $order_id)->orderby('created_at','desc')->get();
+            $user_reels = User_Reels::with('reels')->where('user_id', $influencer_user_id)->orderby('created_at','desc')->get();
+            // $order = Order::find($order_id);
+            // $order_quantity = $order->quantity;
+            $reels_urls = [];
+        
+            foreach ($user_reels as $user_reel) {
+        
+                if ($reel) {
+                    $reels_urls[] = array(
+                        'reels_id' => $user_reel->reels_id,
+                        'reels_url' => $user_reel->reels->url,
+                        // 'order_quantity' => $order_quantity,
+                    );
+        
+                    // Get associated order items for the current reel
+                    // $order_list = $reel->items;
+        
+                    // Append order items to the response array
+                    // $reels_urls[count($reels_urls) - 1]['order_items'] = $order_list;
+                }
+            }
+        
+        
+            return $this->sendResponse(200, $reels_urls);
+        } catch (\Exception $e) {
+            return $this->sendResponse(
+                500,
+                null,
+                [$e->getMessage()]
+            );
+        }
+    }
     public function delete_reel($id)
     {
         try {
@@ -272,7 +305,7 @@ class InfluencerController extends Controller
 
     
     
-    public function reels_reject(Request $request,$id){
+    public function reels_redo(Request $request,$id){
         try {
 
             $order_id = $id;

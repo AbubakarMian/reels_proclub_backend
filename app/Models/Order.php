@@ -33,6 +33,6 @@ class Order extends Model
 
     public function reels()
     {
-        return $this->hasMany(Order_ReelsZ::class,'order_id', 'id');
+        return $this->hasMany(Order_Reels::class,'order_id', 'id');
     }
 }

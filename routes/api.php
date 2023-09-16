@@ -38,12 +38,14 @@ Route::group(['middleware' => 'auth.client_token'], function () {
     Route::get('get_orders_list/{id}',[InfluencerController::class, 'get_orders_list']);
     // get_orders_reels_)list
     Route::get('get_orders_reels/{id}',[InfluencerController::class, 'get_orders_reels']);
+    Route::get('get_influencer_reels/{influencer_user_id}',[InfluencerController::class, 'get_influencer_reels']);
     Route::delete('delete_reel/{id}',[InfluencerController::class, 'delete_reel']);
     Route::post('deliver_reels/{id}',[InfluencerController::class, 'deliver_reels']);
     // FOR USER
     Route::get('get_order_reviews/{id}',[InfluencerController::class, 'get_order_reviews']);
     Route::get('get_order_reels_user/{id}',[InfluencerController::class, 'get_order_reels_user']);
     Route::post('reels_accepetd/{id}',[InfluencerController::class, 'reels_accepetd']);
+    Route::post('reels_redo/{id}',[InfluencerController::class, 'reels_redo']);
     Route::get('orders_available/{id}',[InfluencerController::class, 'orders_available']);
     Route::get('get_profile/{id}',[InfluencerController::class, 'get_profile']);
     Route::post('user_update_profile/{id}',[InfluencerController::class, 'user_update_profile']);
